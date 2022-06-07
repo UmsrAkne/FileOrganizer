@@ -1,5 +1,7 @@
 ﻿namespace FileOrganizer.Models
 {
+    using System.Collections.ObjectModel;
+    using System.Linq;
     using System.Windows;
     using FileOrganizer.ViewModels;
     using Microsoft.Xaml.Behaviors;
@@ -28,6 +30,8 @@
         {
             // ファイルパスの一覧の配列
             string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
+            var fileCollection = new ObservableCollection<ExtendFileInfo>(files.Select(p => new ExtendFileInfo(p)).ToList());
+            ((sender as Window).DataContext as MainWindowViewModel).ExtendFileInfos = fileCollection;
         }
 
         private void AssociatedObject_PreviewDragOver(object sender, DragEventArgs e)

@@ -1,5 +1,7 @@
 ﻿namespace FileOrganizer.ViewModels
 {
+    using System.Collections.ObjectModel;
+    using FileOrganizer.Models;
     using Prism.Mvvm;
 
     public class MainWindowViewModel : BindableBase
@@ -15,5 +17,8 @@
             get { return title; }
             set { SetProperty(ref title, value); }
         }
+
+        // 基本的にビヘイビアから入力される。
+        public ObservableCollection<ExtendFileInfo> ExtendFileInfos { get; set; }
     }
 }

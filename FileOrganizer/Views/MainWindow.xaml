@@ -2,11 +2,18 @@
     x:Class="FileOrganizer.Views.MainWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+    xmlns:m="clr-namespace:FileOrganizer.Models"
     xmlns:prism="http://prismlibrary.com/"
     Title="{Binding Title}"
     Width="800"
     Height="600"
-    prism:ViewModelLocator.AutoWireViewModel="True">
+    prism:ViewModelLocator.AutoWireViewModel="True"
+    AllowDrop="True">
+
+    <i:Interaction.Behaviors>
+        <m:DropBehavior />
+    </i:Interaction.Behaviors>
 
     <Window.Resources>
         <ResourceDictionary>
