@@ -3,10 +3,18 @@
     <DataTemplate x:Key="ListViewItemTemplate">
 
         <Border>
-            <TextBlock Text="{Binding Name}" />
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="40" />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Column="0" Text="{Binding Index}" />
+
+                <TextBlock Grid.Column="1" Text="{Binding Name}" />
+            </Grid>
         </Border>
 
     </DataTemplate>
-
 
 </ResourceDictionary>

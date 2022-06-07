@@ -30,8 +30,11 @@
         {
             // ファイルパスの一覧の配列
             string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
-            var fileCollection = new ObservableCollection<ExtendFileInfo>(files.Select(p => new ExtendFileInfo(p)).ToList());
-            ((sender as Window).DataContext as MainWindowViewModel).ExtendFileInfos = fileCollection;
+
+            int index = 0;
+            var fileList = files.Select(p => new ExtendFileInfo(p) { Index = ++index }).ToList();
+
+            ((sender as Window).DataContext as MainWindowViewModel).ExtendFileInfos = new ObservableCollection<ExtendFileInfo>(fileList);
         }
 
         private void AssociatedObject_PreviewDragOver(object sender, DragEventArgs e)
