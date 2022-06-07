@@ -33,7 +33,10 @@
 
         <ContentControl prism:RegionManager.RegionName="ContentRegion" />
 
-        <ListView Grid.Row="1" ItemTemplate="{StaticResource ResourceKey=ListViewItemTemplate}" />
+        <ListView
+            Grid.Row="1"
+            ItemTemplate="{StaticResource ResourceKey=ListViewItemTemplate}"
+            ItemsSource="{Binding ExtendFileInfos}" />
 
         <StatusBar Grid.Row="2" />
     </Grid>

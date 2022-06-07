@@ -7,6 +7,7 @@
     public class MainWindowViewModel : BindableBase
     {
         private string title = "Prism Application";
+        private ObservableCollection<ExtendFileInfo> extendFileInfos;
 
         public MainWindowViewModel()
         {
@@ -19,6 +20,10 @@
         }
 
         // 基本的にビヘイビアから入力される。
-        public ObservableCollection<ExtendFileInfo> ExtendFileInfos { get; set; }
+        public ObservableCollection<ExtendFileInfo> ExtendFileInfos
+        {
+            get => extendFileInfos;
+            set => SetProperty(ref extendFileInfos, value);
+        }
     }
 }
