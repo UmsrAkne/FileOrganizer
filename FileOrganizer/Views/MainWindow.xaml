@@ -16,6 +16,7 @@
     </i:Interaction.Behaviors>
 
     <Window.Resources>
+
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="../Resources/ListViewTemplate.xaml" />
