@@ -7,6 +7,15 @@
     Width="800"
     Height="600"
     prism:ViewModelLocator.AutoWireViewModel="True">
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Resources/ListViewTemplate.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+
     <Grid>
 
         <Grid.RowDefinitions>
@@ -17,7 +26,7 @@
 
         <ContentControl prism:RegionManager.RegionName="ContentRegion" />
 
-        <ListView Grid.Row="1" />
+        <ListView Grid.Row="1" ItemTemplate="{StaticResource ResourceKey=ListViewItemTemplate}" />
 
         <StatusBar Grid.Row="2" />
     </Grid>
