@@ -18,8 +18,18 @@
 
                 <TextBlock Grid.Column="1" Text="{Binding Name}" />
             </Grid>
+
         </Border>
 
     </DataTemplate>
+
+    <Style x:Key="ListViewItemContainerStyle" TargetType="ListViewItem">
+        <Style.Triggers>
+            <Trigger Property="ListView.AlternationIndex" Value="0">
+                <Setter Property="Background" Value="OldLace" />
+            </Trigger>
+
+        </Style.Triggers>
+    </Style>
 
 </ResourceDictionary>
