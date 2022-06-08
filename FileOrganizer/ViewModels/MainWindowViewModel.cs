@@ -6,6 +6,7 @@
     using FileOrganizer.Models;
     using Prism.Commands;
     using Prism.Mvvm;
+    using WMPLib;
 
     public class MainWindowViewModel : BindableBase
     {
@@ -15,6 +16,7 @@
         private int selectedFileIndex;
         private DoubleFileList doubleFileList = new DoubleFileList(new List<ExtendFileInfo>());
         private bool ignoreFileIsVisible = true;
+        private WindowsMediaPlayer windowsMediaPlayer = new WindowsMediaPlayer();
 
         public MainWindowViewModel()
         {
@@ -98,6 +100,15 @@
             else
             {
                 ExtendFileInfos = new ObservableCollection<ExtendFileInfo>(doubleFileList.GetExceptedIgnoreFiles());
+            }
+        });
+
+        public DelegateCommand PlaySoundCommand => new DelegateCommand(() =>
+        {
+            if (SelectedItem != null)
+            {
+                windowsMediaPlayer.URL = SelectedItem.FileInfo.FullName;
+                windowsMediaPlayer.controls.play();
             }
         });
 
