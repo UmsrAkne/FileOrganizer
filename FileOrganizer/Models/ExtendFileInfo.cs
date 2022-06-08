@@ -1,9 +1,13 @@
 ﻿namespace FileOrganizer.Models
 {
     using System.IO;
+    using Prism.Mvvm;
 
-    public class ExtendFileInfo
     {
+        private bool isSelected;
+        private bool ignore;
+        private int index;
+
         public ExtendFileInfo(string path)
         {
             FileInfo = new FileInfo(path);
@@ -13,6 +17,5 @@
 
         public string Name => FileInfo.Name;
 
-        public int Index { get; set; }
     }
 }

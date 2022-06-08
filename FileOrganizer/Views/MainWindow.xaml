@@ -15,6 +15,21 @@
         <m:DropBehavior />
     </i:Interaction.Behaviors>
 
+    <Window.InputBindings>
+        <KeyBinding
+            Key="J"
+            Command="{Binding CursorDownCommand}"
+            CommandParameter="{Binding ElementName=FileListView}" />
+
+        <KeyBinding
+            Key="K"
+            Command="{Binding CursorUpCommand}"
+            CommandParameter="{Binding ElementName=FileListView}" />
+
+        <KeyBinding Key="I" Command="{Binding IgnoreFileCommand}" />
+
+    </Window.InputBindings>
+
     <Window.Resources>
 
         <ResourceDictionary>
@@ -28,18 +43,16 @@
 
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
 
         <ContentControl prism:RegionManager.RegionName="ContentRegion" />
 
         <ListView
+            x:Name="FileListView"
             Grid.Row="1"
             AlternationCount="2"
             ItemContainerStyle="{StaticResource ResourceKey=ListViewItemContainerStyle}"
             ItemTemplate="{StaticResource ResourceKey=ListViewItemTemplate}"
-            ItemsSource="{Binding ExtendFileInfos}" />
 
         <StatusBar Grid.Row="2" />
     </Grid>
