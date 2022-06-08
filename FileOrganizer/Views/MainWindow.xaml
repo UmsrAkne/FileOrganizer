@@ -54,6 +54,10 @@
                 <MenuItem Command="{Binding DisplayIgnoreFileCommand}" Header="無視しているファイルを表示" />
                 <MenuItem Command="{Binding HideIgnoreFileCommand}" Header="無視しているファイルを非表示" />
             </MenuItem>
+
+            <MenuItem Header="編集">
+                <MenuItem Command="{Binding AppendPrefixToIgnoreFilesCommand}" Header="無視ファイルにプレフィックス" />
+            </MenuItem>
         </Menu>
 
         <ListView
