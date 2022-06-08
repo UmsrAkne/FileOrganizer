@@ -26,7 +26,7 @@
             Command="{Binding CursorUpCommand}"
             CommandParameter="{Binding ElementName=FileListView}" />
 
-        <KeyBinding Key="I" Command="{Binding IgnoreFileCommand}" />
+        <KeyBinding Key="I" Command="{Binding ToggleIgnoreFileCommand}" />
 
     </Window.InputBindings>
 
@@ -49,6 +49,13 @@
 
         <ContentControl prism:RegionManager.RegionName="ContentRegion" />
 
+        <Menu>
+            <MenuItem Header="表示">
+                <MenuItem Command="{Binding DisplayIgnoreFileCommand}" Header="無視しているファイルを表示" />
+                <MenuItem Command="{Binding HideIgnoreFileCommand}" Header="無視しているファイルを非表示" />
+            </MenuItem>
+        </Menu>
+
         <ListView
             x:Name="FileListView"
             Grid.Row="1"
@@ -56,7 +63,8 @@
             ItemContainerStyle="{StaticResource ResourceKey=ListViewItemContainerStyle}"
             ItemTemplate="{StaticResource ResourceKey=ListViewItemTemplate}"
             ItemsSource="{Binding ExtendFileInfos}"
-            SelectedIndex="{Binding SelectedFileIndex}" />
+            SelectedIndex="{Binding SelectedFileIndex}"
+            SelectedItem="{Binding SelectedItem}" />
 
         <StatusBar Grid.Row="2" VerticalAlignment="Bottom" />
     </Grid>

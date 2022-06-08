@@ -1,5 +1,6 @@
 ﻿namespace FileOrganizer.ViewModels
 {
+    using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Windows.Controls;
     using FileOrganizer.Models;
@@ -12,6 +13,7 @@
         private ObservableCollection<ExtendFileInfo> extendFileInfos;
         private ExtendFileInfo selectedItem;
         private int selectedFileIndex;
+        private DoubleFileList doubleFileList;
 
         public MainWindowViewModel()
         {
@@ -23,7 +25,6 @@
             set { SetProperty(ref title, value); }
         }
 
-        // 基本的にビヘイビアから入力される。
         public ObservableCollection<ExtendFileInfo> ExtendFileInfos
         {
             get => extendFileInfos;
@@ -52,15 +53,32 @@
             }
         });
 
-        public DelegateCommand IgnoreFileCommand => new DelegateCommand(() =>
+        public DelegateCommand ToggleIgnoreFileCommand => new DelegateCommand(() =>
         {
             if (SelectedItem != null)
             {
-                SelectedItem.Ignore = true;
+                SelectedItem.Ignore = !SelectedItem.Ignore;
             }
 
             ReIndex();
         });
+
+        public DelegateCommand DisplayIgnoreFileCommand => new DelegateCommand(() =>
+        {
+            ExtendFileInfos = new ObservableCollection<ExtendFileInfo>(doubleFileList.GetFiles());
+        });
+
+        public DelegateCommand HideIgnoreFileCommand => new DelegateCommand(() =>
+        {
+            ExtendFileInfos = new ObservableCollection<ExtendFileInfo>(doubleFileList.GetExceptedIgnoreFiles());
+        });
+
+        // 基本的にビヘイビアから呼び出される
+        public void SetFiles(List<ExtendFileInfo> files)
+        {
+            ExtendFileInfos = new ObservableCollection<ExtendFileInfo>(files);
+            doubleFileList = new DoubleFileList(files);
+        }
 
         private void ReIndex()
         {
