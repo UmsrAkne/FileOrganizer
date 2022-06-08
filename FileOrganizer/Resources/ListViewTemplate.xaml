@@ -19,6 +19,16 @@
                 <TextBlock Grid.Column="1" Text="{Binding Name}" />
             </Grid>
 
+            <Border.Style>
+                <Style TargetType="Border">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Ignore}" Value="True">
+                            <Setter Property="Opacity" Value="0.4" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Border.Style>
+
         </Border>
 
     </DataTemplate>
