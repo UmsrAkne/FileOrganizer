@@ -3,6 +3,7 @@
     using System.IO;
     using Prism.Mvvm;
 
+    public class ExtendFileInfo : BindableBase
     {
         private bool isSelected;
         private bool ignore;
@@ -17,5 +18,8 @@
 
         public string Name => FileInfo.Name;
 
+        public bool Ignore { get => ignore; set => SetProperty(ref ignore, value); }
+
+        public int Index { get => index; set => SetProperty(ref index, value); }
     }
 }
