@@ -1,5 +1,6 @@
 ﻿namespace FileOrganizer.ViewModels
 {
+    using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Windows.Controls;
     using FileOrganizer.Models;
@@ -12,6 +13,8 @@
         private ObservableCollection<ExtendFileInfo> extendFileInfos;
         private ExtendFileInfo selectedItem;
         private int selectedFileIndex;
+        private DoubleFileList doubleFileList = new DoubleFileList(new List<ExtendFileInfo>());
+        private bool ignoreFileIsVisible = true;
 
         public MainWindowViewModel()
         {
@@ -23,7 +26,6 @@
             set { SetProperty(ref title, value); }
         }
 
-        // 基本的にビヘイビアから入力される。
         public ObservableCollection<ExtendFileInfo> ExtendFileInfos
         {
             get => extendFileInfos;
@@ -52,15 +54,41 @@
             }
         });
 
-        public DelegateCommand IgnoreFileCommand => new DelegateCommand(() =>
+        public DelegateCommand ToggleIgnoreFileCommand => new DelegateCommand(() =>
         {
             if (SelectedItem != null)
             {
-                SelectedItem.Ignore = true;
+                SelectedItem.Ignore = !SelectedItem.Ignore;
+
+                if (!ignoreFileIsVisible)
+                {
+                    var index = SelectedFileIndex; // Remove を行うとインデックスがリセットされるため変数に保持する。
+                    ExtendFileInfos.Remove(SelectedItem);
+                    SelectedFileIndex = index;
+                }
             }
 
             ReIndex();
         });
+
+        public DelegateCommand DisplayIgnoreFileCommand => new DelegateCommand(() =>
+        {
+            ExtendFileInfos = new ObservableCollection<ExtendFileInfo>(doubleFileList.GetFiles());
+            ignoreFileIsVisible = true;
+        });
+
+        public DelegateCommand HideIgnoreFileCommand => new DelegateCommand(() =>
+        {
+            ExtendFileInfos = new ObservableCollection<ExtendFileInfo>(doubleFileList.GetExceptedIgnoreFiles());
+            ignoreFileIsVisible = false;
+        });
+
+        // 基本的にビヘイビアから呼び出される
+        public void SetFiles(List<ExtendFileInfo> files)
+        {
+            ExtendFileInfos = new ObservableCollection<ExtendFileInfo>(files);
+            doubleFileList = new DoubleFileList(files);
+        }
 
         private void ReIndex()
         {

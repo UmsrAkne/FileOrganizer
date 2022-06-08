@@ -34,7 +34,7 @@
             int index = 0;
             var fileList = files.Select(p => new ExtendFileInfo(p) { Index = ++index }).ToList();
 
-            ((sender as Window).DataContext as MainWindowViewModel).ExtendFileInfos = new ObservableCollection<ExtendFileInfo>(fileList);
+            ((sender as Window).DataContext as MainWindowViewModel).SetFiles(fileList);
         }
 
         private void AssociatedObject_PreviewDragOver(object sender, DragEventArgs e)
