@@ -13,7 +13,8 @@
         private ObservableCollection<ExtendFileInfo> extendFileInfos;
         private ExtendFileInfo selectedItem;
         private int selectedFileIndex;
-        private DoubleFileList doubleFileList;
+        private DoubleFileList doubleFileList = new DoubleFileList(new List<ExtendFileInfo>());
+        private bool ignoreFileIsVisible = true;
 
         public MainWindowViewModel()
         {
@@ -58,6 +59,13 @@
             if (SelectedItem != null)
             {
                 SelectedItem.Ignore = !SelectedItem.Ignore;
+
+                if (!ignoreFileIsVisible)
+                {
+                    var index = SelectedFileIndex; // Remove を行うとインデックスがリセットされるため変数に保持する。
+                    ExtendFileInfos.Remove(SelectedItem);
+                    SelectedFileIndex = index;
+                }
             }
 
             ReIndex();
@@ -66,11 +74,13 @@
         public DelegateCommand DisplayIgnoreFileCommand => new DelegateCommand(() =>
         {
             ExtendFileInfos = new ObservableCollection<ExtendFileInfo>(doubleFileList.GetFiles());
+            ignoreFileIsVisible = true;
         });
 
         public DelegateCommand HideIgnoreFileCommand => new DelegateCommand(() =>
         {
             ExtendFileInfos = new ObservableCollection<ExtendFileInfo>(doubleFileList.GetExceptedIgnoreFiles());
+            ignoreFileIsVisible = false;
         });
 
         // 基本的にビヘイビアから呼び出される
