@@ -73,19 +73,32 @@
 
         public DelegateCommand DisplayIgnoreFileCommand => new DelegateCommand(() =>
         {
-            ExtendFileInfos = new ObservableCollection<ExtendFileInfo>(doubleFileList.GetFiles());
             ignoreFileIsVisible = true;
+            ReloadCommand.Execute();
         });
 
         public DelegateCommand HideIgnoreFileCommand => new DelegateCommand(() =>
         {
-            ExtendFileInfos = new ObservableCollection<ExtendFileInfo>(doubleFileList.GetExceptedIgnoreFiles());
             ignoreFileIsVisible = false;
+            ReloadCommand.Execute();
         });
 
         public DelegateCommand AppendPrefixToIgnoreFilesCommand => new DelegateCommand(() =>
         {
             doubleFileList.AppendPrefixToIgnoreFiles("ignore");
+            ReloadCommand.Execute();
+        });
+
+        public DelegateCommand ReloadCommand => new DelegateCommand(() =>
+        {
+            if (ignoreFileIsVisible)
+            {
+                ExtendFileInfos = new ObservableCollection<ExtendFileInfo>(doubleFileList.GetFiles());
+            }
+            else
+            {
+                ExtendFileInfos = new ObservableCollection<ExtendFileInfo>(doubleFileList.GetExceptedIgnoreFiles());
+            }
         });
 
         // 基本的にビヘイビアから呼び出される
