@@ -33,7 +33,7 @@
             {
                 var f = ignoreFiles[i];
                 f.TentativeName = $"{prefix}_{f.Name}";
-                if (File.Exists($"{f.FileInfo.DirectoryName}\\{f.TentativeName}"))
+                if (!File.Exists(f.FileInfo.FullName) && File.Exists($"{f.FileInfo.DirectoryName}\\{f.TentativeName}"))
                 {
                     return;
                 }
