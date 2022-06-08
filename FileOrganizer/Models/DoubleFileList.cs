@@ -1,6 +1,7 @@
 ﻿namespace FileOrganizer.Models
 {
     using System.Collections.Generic;
+    using System.IO;
     using System.Linq;
 
     public class DoubleFileList
@@ -23,6 +24,25 @@
         public List<ExtendFileInfo> GetFiles()
         {
             return OriginalFiles.ToList();
+        }
+
+        public void AppendPrefixToIgnoreFiles(string prefix)
+        {
+            var ignoreFiles = Files.Where(f => f.Ignore).ToList();
+            for (int i = 0; i < ignoreFiles.Count; i++)
+            {
+                var f = ignoreFiles[i];
+                f.TentativeName = $"{prefix}_{f.Name}";
+                if (File.Exists($"{f.FileInfo.DirectoryName}\\{f.TentativeName}"))
+                {
+                    return;
+                }
+            }
+
+            foreach (var file in ignoreFiles)
+            {
+                file.FileInfo.MoveTo($"{file.FileInfo.Directory}\\{file.TentativeName}");
+            }
         }
     }
 }

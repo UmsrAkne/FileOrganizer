@@ -83,6 +83,11 @@
             ignoreFileIsVisible = false;
         });
 
+        public DelegateCommand AppendPrefixToIgnoreFilesCommand => new DelegateCommand(() =>
+        {
+            doubleFileList.AppendPrefixToIgnoreFiles("ignore");
+        });
+
         // 基本的にビヘイビアから呼び出される
         public void SetFiles(List<ExtendFileInfo> files)
         {

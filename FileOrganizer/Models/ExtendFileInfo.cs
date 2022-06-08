@@ -21,5 +21,7 @@
         public bool Ignore { get => ignore; set => SetProperty(ref ignore, value); }
 
         public int Index { get => index; set => SetProperty(ref index, value); }
+
+        public string TentativeName { get; set; }
     }
 }
