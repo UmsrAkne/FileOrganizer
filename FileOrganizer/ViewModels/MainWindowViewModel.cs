@@ -105,7 +105,7 @@
 
         public DelegateCommand PlaySoundCommand => new DelegateCommand(() =>
         {
-            if (SelectedItem != null)
+            if (SelectedItem != null || SelectedItem.IsSoundFile)
             {
                 windowsMediaPlayer.URL = SelectedItem.FileInfo.FullName;
                 windowsMediaPlayer.controls.play();

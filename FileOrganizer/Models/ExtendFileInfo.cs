@@ -23,5 +23,7 @@
         public int Index { get => index; set => SetProperty(ref index, value); }
 
         public string TentativeName { get; set; }
+
+        public bool IsSoundFile => FileInfo.Extension == "mp3" || FileInfo.Extension == "ogg" || FileInfo.Extension == "wma";
     }
 }
