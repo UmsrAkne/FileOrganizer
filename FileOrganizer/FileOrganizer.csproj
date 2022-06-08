@@ -68,6 +68,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Models\DoubleFileList.cs" />
     <Compile Include="Models\DropBehavior.cs" />
     <Compile Include="Models\ExtendFileInfo.cs" />
     <Compile Include="Models\NumberFormatConverter.cs" />
