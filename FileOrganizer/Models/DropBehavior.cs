@@ -1,6 +1,5 @@
 ﻿namespace FileOrganizer.Models
 {
-    using System.Collections.ObjectModel;
     using System.Linq;
     using System.Windows;
     using FileOrganizer.ViewModels;
@@ -32,7 +31,7 @@
             string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
 
             int index = 0;
-            var fileList = files.Select(p => new ExtendFileInfo(p) { Index = ++index }).ToList();
+            var fileList = files.OrderBy(p => p).Select(p => new ExtendFileInfo(p) { Index = ++index }).ToList();
 
             ((sender as Window).DataContext as MainWindowViewModel).SetFiles(fileList);
         }
