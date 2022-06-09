@@ -19,6 +19,7 @@
         private WindowsMediaPlayer windowsMediaPlayer = new WindowsMediaPlayer();
         private int ignoreFileCount;
         private int maximumIndex;
+        private int markedFileCount;
 
         public MainWindowViewModel()
         {
@@ -45,6 +46,8 @@
         public int IgnoreFileCount { get => ignoreFileCount; set => SetProperty(ref ignoreFileCount, value); }
 
         public int MaximumIndex { get => maximumIndex; set => SetProperty(ref maximumIndex, value); }
+
+        public int MarkedFileCount { get => markedFileCount; set => SetProperty(ref markedFileCount, value); }
 
         public DelegateCommand<ListView> CursorUpCommand => new DelegateCommand<ListView>(lv =>
         {
@@ -80,6 +83,15 @@
             }
 
             ReIndex();
+        });
+
+        public DelegateCommand ToggleMarkCommand => new DelegateCommand(() =>
+        {
+            if (SelectedItem != null)
+            {
+                SelectedItem.Marked = !SelectedItem.Marked;
+                MarkedFileCount += SelectedItem.Marked ? 1 : -1;
+            }
         });
 
         public DelegateCommand DisplayIgnoreFileCommand => new DelegateCommand(() =>
@@ -128,6 +140,10 @@
         {
             ExtendFileInfos = new ObservableCollection<ExtendFileInfo>(files);
             doubleFileList = new DoubleFileList(files);
+
+            MarkedFileCount = 0;
+            IgnoreFileCount = 0;
+
             ReIndex();
         }
 
