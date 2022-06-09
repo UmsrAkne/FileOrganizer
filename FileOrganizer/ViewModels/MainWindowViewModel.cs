@@ -107,6 +107,8 @@
         {
             if (SelectedItem != null || SelectedItem.IsSoundFile)
             {
+                doubleFileList.GetFiles().ForEach(f => f.Playing = false);
+                SelectedItem.Playing = true;
                 windowsMediaPlayer.URL = SelectedItem.FileInfo.FullName;
                 windowsMediaPlayer.controls.play();
             }
