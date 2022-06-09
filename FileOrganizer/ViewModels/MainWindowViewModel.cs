@@ -11,12 +11,14 @@
     public class MainWindowViewModel : BindableBase
     {
         private string title = "Prism Application";
-        private ObservableCollection<ExtendFileInfo> extendFileInfos;
+        private ObservableCollection<ExtendFileInfo> extendFileInfos = new ObservableCollection<ExtendFileInfo>();
         private ExtendFileInfo selectedItem;
         private int selectedFileIndex;
         private DoubleFileList doubleFileList = new DoubleFileList(new List<ExtendFileInfo>());
         private bool ignoreFileIsVisible = true;
         private WindowsMediaPlayer windowsMediaPlayer = new WindowsMediaPlayer();
+        private int ignoreFileCount;
+        private int maximumIndex;
 
         public MainWindowViewModel()
         {
@@ -37,6 +39,12 @@
         public ExtendFileInfo SelectedItem { get => selectedItem; set => SetProperty(ref selectedItem, value); }
 
         public int SelectedFileIndex { get => selectedFileIndex; set => SetProperty(ref selectedFileIndex, value); }
+
+        public bool IgnoreFileIsVisible { get => ignoreFileIsVisible; set => SetProperty(ref ignoreFileIsVisible, value); }
+
+        public int IgnoreFileCount { get => ignoreFileCount; set => SetProperty(ref ignoreFileCount, value); }
+
+        public int MaximumIndex { get => maximumIndex; set => SetProperty(ref maximumIndex, value); }
 
         public DelegateCommand<ListView> CursorUpCommand => new DelegateCommand<ListView>(lv =>
         {
@@ -61,8 +69,9 @@
             if (SelectedItem != null)
             {
                 SelectedItem.Ignore = !SelectedItem.Ignore;
+                IgnoreFileCount += SelectedItem.Ignore ? 1 : -1;
 
-                if (!ignoreFileIsVisible)
+                if (!IgnoreFileIsVisible)
                 {
                     var index = SelectedFileIndex; // Remove を行うとインデックスがリセットされるため変数に保持する。
                     ExtendFileInfos.Remove(SelectedItem);
@@ -75,13 +84,13 @@
 
         public DelegateCommand DisplayIgnoreFileCommand => new DelegateCommand(() =>
         {
-            ignoreFileIsVisible = true;
+            IgnoreFileIsVisible = true;
             ReloadCommand.Execute();
         });
 
         public DelegateCommand HideIgnoreFileCommand => new DelegateCommand(() =>
         {
-            ignoreFileIsVisible = false;
+            IgnoreFileIsVisible = false;
             ReloadCommand.Execute();
         });
 
@@ -93,7 +102,7 @@
 
         public DelegateCommand ReloadCommand => new DelegateCommand(() =>
         {
-            if (ignoreFileIsVisible)
+            if (IgnoreFileIsVisible)
             {
                 ExtendFileInfos = new ObservableCollection<ExtendFileInfo>(doubleFileList.GetFiles());
             }
@@ -119,6 +128,7 @@
         {
             ExtendFileInfos = new ObservableCollection<ExtendFileInfo>(files);
             doubleFileList = new DoubleFileList(files);
+            ReIndex();
         }
 
         private void ReIndex()
@@ -136,6 +146,8 @@
                     f.Index = index++;
                 }
             }
+
+            MaximumIndex = index - 1;
         }
     }
 }
