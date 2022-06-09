@@ -5,6 +5,7 @@
     xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
     xmlns:m="clr-namespace:FileOrganizer.Models"
     xmlns:prism="http://prismlibrary.com/"
+    x:Name="Window"
     Title="{Binding Title}"
     Width="800"
     Height="600"
