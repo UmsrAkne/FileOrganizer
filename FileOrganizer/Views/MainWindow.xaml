@@ -36,6 +36,7 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="../Resources/ListViewTemplate.xaml" />
+                <ResourceDictionary Source="../Resources/StatusBarContent.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
@@ -71,6 +72,9 @@
             SelectedIndex="{Binding SelectedFileIndex}"
             SelectedItem="{Binding SelectedItem}" />
 
-        <StatusBar Grid.Row="2" VerticalAlignment="Bottom" />
+        <StatusBar Grid.Row="2" VerticalAlignment="Bottom">
+            <StatusBarItem Content="{StaticResource ResourceKey=StatusBarContents}" />
+        </StatusBar>
+
     </Grid>
 </Window>
