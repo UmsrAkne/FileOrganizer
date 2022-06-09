@@ -9,6 +9,7 @@
         private bool ignore;
         private int index;
         private bool playing;
+        private bool marked;
 
         public ExtendFileInfo(string path)
         {
@@ -28,5 +29,7 @@
         public bool IsSoundFile => FileInfo.Extension == "mp3" || FileInfo.Extension == "ogg" || FileInfo.Extension == "wma";
 
         public bool Playing { get => playing; set => SetProperty(ref playing, value); }
+
+        public bool Marked { get => marked; set => SetProperty(ref marked, value); }
     }
 }
