@@ -46,7 +46,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
             <RowDefinition />
-            <RowDefinition Height="50" />
+            <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
 
         <ContentControl prism:RegionManager.RegionName="ContentRegion" />
