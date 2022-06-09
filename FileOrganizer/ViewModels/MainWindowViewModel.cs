@@ -82,6 +82,14 @@
             ReIndex();
         });
 
+        public DelegateCommand ToggleMarkCommand => new DelegateCommand(() =>
+        {
+            if (SelectedItem != null)
+            {
+                SelectedItem.Marked = !SelectedItem.Marked;
+            }
+        });
+
         public DelegateCommand DisplayIgnoreFileCommand => new DelegateCommand(() =>
         {
             IgnoreFileIsVisible = true;

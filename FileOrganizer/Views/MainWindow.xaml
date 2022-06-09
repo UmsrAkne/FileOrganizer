@@ -29,6 +29,8 @@
 
         <KeyBinding Key="I" Command="{Binding ToggleIgnoreFileCommand}" />
 
+        <KeyBinding Key="M" Command="{Binding ToggleMarkCommand}" />
+
     </Window.InputBindings>
 
     <Window.Resources>
