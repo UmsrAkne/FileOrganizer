@@ -28,6 +28,11 @@
 
                 <TextBlock Margin="10,0" Text="/" />
 
+                <TextBlock Text="マークしているファイル数 : " />
+                <TextBlock Text="{Binding MarkedFileCount}" />
+
+                <TextBlock Margin="10,0" Text="/" />
+
                 <TextBlock Text="無視しているファイル : " />
 
                 <TextBlock>
