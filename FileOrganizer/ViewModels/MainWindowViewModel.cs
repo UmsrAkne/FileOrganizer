@@ -1,7 +1,9 @@
 ﻿namespace FileOrganizer.ViewModels
 {
+    using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
+    using System.Linq;
     using System.Windows.Controls;
     using FileOrganizer.Models;
     using Prism.Commands;
@@ -49,6 +51,8 @@
 
         public int MarkedFileCount { get => markedFileCount; set => SetProperty(ref markedFileCount, value); }
 
+        public int ListViewItemLineHeight => 15;
+
         public DelegateCommand<ListView> CursorUpCommand => new DelegateCommand<ListView>(lv =>
         {
             if (SelectedFileIndex > 0)
@@ -69,10 +73,14 @@
 
         public DelegateCommand<ListView> CursorPageUpCommand => new DelegateCommand<ListView>((lv) =>
         {
+            var command = CursorUpCommand;
+            Enumerable.Range(0, GetDisplayingItemCount(lv)).ToList().ForEach(i => command.Execute(lv));
         });
 
         public DelegateCommand<ListView> CursorPageDownCommand => new DelegateCommand<ListView>((lv) =>
         {
+            var command = CursorDownCommand;
+            Enumerable.Range(0, GetDisplayingItemCount(lv)).ToList().ForEach(i => command.Execute(lv));
         });
 
         public DelegateCommand ToggleIgnoreFileCommand => new DelegateCommand(() =>
@@ -172,6 +180,12 @@
             }
 
             MaximumIndex = index - 1;
+        }
+
+        private int GetDisplayingItemCount(ListView lv)
+        {
+            // + 5 はボーダー等によるズレの補正値。厳密に正確な表示数が出るわけではない。大体当たっている程度。
+            return (int)Math.Floor(lv.ActualHeight / (ListViewItemLineHeight + 5));
         }
     }
 }
