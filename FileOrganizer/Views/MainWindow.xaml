@@ -27,6 +27,16 @@
             Command="{Binding CursorUpCommand}"
             CommandParameter="{Binding ElementName=FileListView}" />
 
+        <KeyBinding
+            Key="U"
+            Command="{Binding CursorPageUpCommand}"
+            CommandParameter="{Binding ElementName=FileListView}" />
+
+        <KeyBinding
+            Key="D"
+            Command="{Binding CursorPageDownCommand}"
+            CommandParameter="{Binding ElementName=FileListView}" />
+
         <KeyBinding Key="I" Command="{Binding ToggleIgnoreFileCommand}" />
 
         <KeyBinding Key="M" Command="{Binding ToggleMarkCommand}" />

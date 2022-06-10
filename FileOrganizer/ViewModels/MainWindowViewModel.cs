@@ -67,6 +67,14 @@
             }
         });
 
+        public DelegateCommand<ListView> CursorPageUpCommand => new DelegateCommand<ListView>((lv) =>
+        {
+        });
+
+        public DelegateCommand<ListView> CursorPageDownCommand => new DelegateCommand<ListView>((lv) =>
+        {
+        });
+
         public DelegateCommand ToggleIgnoreFileCommand => new DelegateCommand(() =>
         {
             if (SelectedItem != null)
