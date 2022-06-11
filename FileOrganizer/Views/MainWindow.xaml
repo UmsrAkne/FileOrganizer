@@ -47,6 +47,17 @@
             Command="{Binding CursorPageDownCommand}"
             CommandParameter="{Binding ElementName=FileListView}" />
 
+        <KeyBinding
+            Key="N"
+            Command="{Binding JumpToNextMarkCommand}"
+            CommandParameter="{Binding ElementName=FileListView}" />
+
+        <KeyBinding
+            Key="N"
+            Command="{Binding JumpToPrevMarkCommand}"
+            CommandParameter="{Binding ElementName=FileListView}"
+            Modifiers="Shift" />
+
         <KeyBinding Key="I" Command="{Binding ToggleIgnoreFileCommand}" />
 
         <KeyBinding Key="M" Command="{Binding ToggleMarkCommand}" />

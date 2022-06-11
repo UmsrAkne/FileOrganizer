@@ -110,6 +110,28 @@
             }
         });
 
+        public DelegateCommand<ListView> JumpToNextMarkCommand => new DelegateCommand<ListView>((lv) =>
+        {
+            var nextMark = ExtendFileInfos.Skip(SelectedFileIndex + 1).FirstOrDefault(f => f.Marked);
+
+            if (nextMark != null)
+            {
+                lv.ScrollIntoView(nextMark);
+                SelectedFileIndex = ExtendFileInfos.IndexOf(nextMark);
+            }
+        });
+
+        public DelegateCommand<ListView> JumpToPrevMarkCommand => new DelegateCommand<ListView>((lv) =>
+        {
+            var prevMark = ExtendFileInfos.Take(SelectedFileIndex - 1).Reverse().FirstOrDefault(f => f.Marked);
+
+            if (prevMark != null)
+            {
+                lv.ScrollIntoView(prevMark);
+                SelectedFileIndex = ExtendFileInfos.IndexOf(prevMark);
+            }
+        });
+
         public DelegateCommand DisplayIgnoreFileCommand => new DelegateCommand(() =>
         {
             IgnoreFileIsVisible = true;
