@@ -150,6 +150,19 @@
             ReloadCommand.Execute();
         });
 
+        public DelegateCommand AppendNumberCommand => new DelegateCommand(() =>
+        {
+            doubleFileList.AppendNumber();
+            ReloadCommand.Execute();
+        });
+
+        public DelegateCommand AppendNumberWithoutIgnoreFileCommand => new DelegateCommand(() =>
+        {
+            doubleFileList.AppendNumberWithoutIgnoreFile();
+            ReloadCommand.Execute();
+        });
+
+
         public DelegateCommand ReloadCommand => new DelegateCommand(() =>
         {
             if (IgnoreFileIsVisible)

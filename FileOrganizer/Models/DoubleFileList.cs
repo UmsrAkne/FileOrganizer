@@ -44,5 +44,43 @@
                 file.FileInfo.MoveTo($"{file.FileInfo.Directory}\\{file.TentativeName}");
             }
         }
+
+        public void AppendNumber()
+        {
+            var number = 1;
+            Files.ForEach(f =>
+            {
+                f.TentativeName = $"{ number++.ToString("0000")}_{f.Name}";
+                if (!File.Exists(f.FileInfo.FullName) && File.Exists($"{f.FileInfo.DirectoryName}\\{f.TentativeName}"))
+                {
+                    return;
+                }
+            });
+
+            Files.ForEach(f =>
+            {
+                f.FileInfo.MoveTo($"{f.FileInfo.Directory}\\{f.TentativeName}");
+            });
+        }
+
+        public void AppendNumberWithoutIgnoreFile()
+        {
+            var withoutIgnoreFiles = Files.Where(f => !f.Ignore).ToList();
+            var number = 1;
+
+            withoutIgnoreFiles.ForEach(f =>
+            {
+                f.TentativeName = $"{ number++.ToString("0000")}_{f.Name}";
+                if (!File.Exists(f.FileInfo.FullName) && File.Exists($"{f.FileInfo.DirectoryName}\\{f.TentativeName}"))
+                {
+                    return;
+                }
+            });
+
+            withoutIgnoreFiles.ForEach(f =>
+            {
+                f.FileInfo.MoveTo($"{f.FileInfo.Directory}\\{f.TentativeName}");
+            });
+        }
     }
 }
