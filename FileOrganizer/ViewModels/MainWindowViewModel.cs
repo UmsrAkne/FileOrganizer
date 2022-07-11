@@ -162,7 +162,6 @@
             ReloadCommand.Execute();
         });
 
-
         public DelegateCommand ReloadCommand => new DelegateCommand(() =>
         {
             if (IgnoreFileIsVisible)
@@ -173,6 +172,12 @@
             {
                 ExtendFileInfos = new ObservableCollection<ExtendFileInfo>(doubleFileList.GetExceptedIgnoreFiles());
             }
+        });
+
+        public DelegateCommand ReverseCommand => new DelegateCommand(() =>
+        {
+            ExtendFileInfos = new ObservableCollection<ExtendFileInfo>(ExtendFileInfos.Reverse());
+            ReIndex();
         });
 
         public DelegateCommand PlaySoundCommand => new DelegateCommand(() =>
