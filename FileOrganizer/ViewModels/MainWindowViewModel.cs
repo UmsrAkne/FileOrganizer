@@ -12,7 +12,7 @@
 
     public class MainWindowViewModel : BindableBase
     {
-        private string title = "Prism Application";
+        private string title = "File Organaizer";
         private ObservableCollection<ExtendFileInfo> extendFileInfos = new ObservableCollection<ExtendFileInfo>();
         private ExtendFileInfo selectedItem;
         private int selectedFileIndex;
