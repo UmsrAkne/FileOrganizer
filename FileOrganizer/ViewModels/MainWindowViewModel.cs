@@ -101,6 +101,12 @@
             ReIndex();
         });
 
+        public DelegateCommand<ListView> ToggleIgnoreFileAndForwardCommand => new DelegateCommand<ListView>((lv) =>
+        {
+            ToggleIgnoreFileCommand.Execute();
+            CursorDownCommand.Execute(lv);
+        });
+
         public DelegateCommand ToggleMarkCommand => new DelegateCommand(() =>
         {
             if (SelectedItem != null)

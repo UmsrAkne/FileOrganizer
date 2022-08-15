@@ -60,6 +60,12 @@
 
         <KeyBinding Key="I" Command="{Binding ToggleIgnoreFileCommand}" />
 
+        <KeyBinding
+            Key="I"
+            Command="{Binding ToggleIgnoreFileAndForwardCommand}"
+            CommandParameter="{Binding ElementName=FileListView}"
+            Modifiers="Shift" />
+
         <KeyBinding Key="M" Command="{Binding ToggleMarkCommand}" />
 
         <KeyBinding Key="Return" Command="{Binding PlaySoundCommand}" />
