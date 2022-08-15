@@ -17,15 +17,6 @@
     </i:Interaction.Behaviors>
 
     <Window.InputBindings>
-        <KeyBinding
-            Key="J"
-            Command="{Binding CursorDownCommand}"
-            CommandParameter="{Binding ElementName=FileListView}" />
-
-        <KeyBinding
-            Key="K"
-            Command="{Binding CursorUpCommand}"
-            CommandParameter="{Binding ElementName=FileListView}" />
 
         <KeyBinding
             Key="U"
@@ -117,7 +108,13 @@
             ItemTemplate="{StaticResource ResourceKey=ListViewItemTemplate}"
             ItemsSource="{Binding ExtendFileInfos}"
             SelectedIndex="{Binding SelectedFileIndex}"
-            SelectedItem="{Binding SelectedItem}" />
+            SelectedItem="{Binding SelectedItem}">
+
+            <i:Interaction.Behaviors>
+                <m:CursorBehavior />
+            </i:Interaction.Behaviors>
+
+        </ListView>
 
         <StatusBar Grid.Row="2" VerticalAlignment="Bottom">
             <StatusBarItem Content="{StaticResource ResourceKey=StatusBarContents}" />
