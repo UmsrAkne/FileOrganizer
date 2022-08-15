@@ -5,7 +5,6 @@
 
     public class ExtendFileInfo : BindableBase
     {
-        private bool isSelected;
         private bool ignore;
         private int index;
         private bool playing;
