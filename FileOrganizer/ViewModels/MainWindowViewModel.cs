@@ -53,34 +53,29 @@
 
         public int ListViewItemLineHeight => 15;
 
-        public DelegateCommand<ListView> CursorUpCommand => new DelegateCommand<ListView>(lv =>
+        public DelegateCommand CursorUpCommand => new DelegateCommand(() =>
         {
-            if (SelectedFileIndex > 0)
+            if (selectedFileIndex > 0)
             {
                 SelectedFileIndex--;
-                lv.ScrollIntoView(SelectedItem);
             }
         });
 
-        public DelegateCommand<ListView> CursorDownCommand => new DelegateCommand<ListView>(lv =>
+        public DelegateCommand CursorDownCommand => new DelegateCommand(() =>
         {
-            if (SelectedFileIndex < ExtendFileInfos.Count - 1)
-            {
-                SelectedFileIndex++;
-                lv.ScrollIntoView(SelectedItem);
-            }
+            SelectedFileIndex++;
         });
 
         public DelegateCommand<ListView> CursorPageUpCommand => new DelegateCommand<ListView>((lv) =>
         {
             var command = CursorUpCommand;
-            Enumerable.Range(0, GetDisplayingItemCount(lv)).ToList().ForEach(i => command.Execute(lv));
+            Enumerable.Range(0, GetDisplayingItemCount(lv)).ToList().ForEach(i => command.Execute());
         });
 
         public DelegateCommand<ListView> CursorPageDownCommand => new DelegateCommand<ListView>((lv) =>
         {
             var command = CursorDownCommand;
-            Enumerable.Range(0, GetDisplayingItemCount(lv)).ToList().ForEach(i => command.Execute(lv));
+            Enumerable.Range(0, GetDisplayingItemCount(lv)).ToList().ForEach(i => command.Execute());
         });
 
         public DelegateCommand ToggleIgnoreFileCommand => new DelegateCommand(() =>
@@ -101,10 +96,10 @@
             ReIndex();
         });
 
-        public DelegateCommand<ListView> ToggleIgnoreFileAndForwardCommand => new DelegateCommand<ListView>((lv) =>
+        public DelegateCommand ToggleIgnoreFileAndForwardCommand => new DelegateCommand(() =>
         {
             ToggleIgnoreFileCommand.Execute();
-            CursorDownCommand.Execute(lv);
+            CursorDownCommand.Execute();
         });
 
         public DelegateCommand ToggleMarkCommand => new DelegateCommand(() =>
@@ -116,24 +111,22 @@
             }
         });
 
-        public DelegateCommand<ListView> JumpToNextMarkCommand => new DelegateCommand<ListView>((lv) =>
+        public DelegateCommand JumpToNextMarkCommand => new DelegateCommand(() =>
         {
             var nextMark = ExtendFileInfos.Skip(SelectedFileIndex + 1).FirstOrDefault(f => f.Marked);
 
             if (nextMark != null)
             {
-                lv.ScrollIntoView(nextMark);
                 SelectedFileIndex = ExtendFileInfos.IndexOf(nextMark);
             }
         });
 
-        public DelegateCommand<ListView> JumpToPrevMarkCommand => new DelegateCommand<ListView>((lv) =>
+        public DelegateCommand JumpToPrevMarkCommand => new DelegateCommand(() =>
         {
             var prevMark = ExtendFileInfos.Take(SelectedFileIndex - 1).Reverse().FirstOrDefault(f => f.Marked);
 
             if (prevMark != null)
             {
-                lv.ScrollIntoView(prevMark);
                 SelectedFileIndex = ExtendFileInfos.IndexOf(prevMark);
             }
         });
