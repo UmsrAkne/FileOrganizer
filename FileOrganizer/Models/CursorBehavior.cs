@@ -21,34 +21,20 @@
         protected override void OnAttached()
         {
             base.OnAttached();
-            AssociatedObject.KeyDown += AssociatedObject_KeyDown;
+            AssociatedObject.SelectionChanged += AssociatedObject_SelectionChanged;
         }
 
-        private void AssociatedObject_KeyDown(object sender, KeyEventArgs e)
+        private void AssociatedObject_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var lv = sender as ListView;
-
-            if (e.Key == Key.J)
-            {
-                lv.SelectedIndex++;
-                lv.ScrollIntoView(lv.SelectedItem);
-            }
-
-            if (e.Key == Key.K)
-            {
-                if (lv.SelectedIndex >= 1)
-                {
-                    lv.SelectedIndex--;
-                    lv.ScrollIntoView(lv.SelectedItem);
-                }
-            }
+            lv.ScrollIntoView(lv.SelectedItem);
         }
 
         // 要素にデタッチされたときの処理。大体イベントハンドラの登録解除をここでやる
         protected override void OnDetaching()
         {
             base.OnDetaching();
-            AssociatedObject.KeyDown -= AssociatedObject_KeyDown;
+            AssociatedObject.SelectionChanged -= AssociatedObject_SelectionChanged;
         }
     }
 }
