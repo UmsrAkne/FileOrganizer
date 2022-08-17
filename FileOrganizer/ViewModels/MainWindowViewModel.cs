@@ -53,34 +53,29 @@
 
         public int ListViewItemLineHeight => 15;
 
-        public DelegateCommand<ListView> CursorUpCommand => new DelegateCommand<ListView>(lv =>
+        public DelegateCommand CursorUpCommand => new DelegateCommand(() =>
         {
-            if (SelectedFileIndex > 0)
+            if (selectedFileIndex > 0)
             {
                 SelectedFileIndex--;
-                lv.ScrollIntoView(SelectedItem);
             }
         });
 
-        public DelegateCommand<ListView> CursorDownCommand => new DelegateCommand<ListView>(lv =>
+        public DelegateCommand CursorDownCommand => new DelegateCommand(() =>
         {
-            if (SelectedFileIndex < ExtendFileInfos.Count - 1)
-            {
-                SelectedFileIndex++;
-                lv.ScrollIntoView(SelectedItem);
-            }
+            SelectedFileIndex++;
         });
 
         public DelegateCommand<ListView> CursorPageUpCommand => new DelegateCommand<ListView>((lv) =>
         {
             var command = CursorUpCommand;
-            Enumerable.Range(0, GetDisplayingItemCount(lv)).ToList().ForEach(i => command.Execute(lv));
+            Enumerable.Range(0, GetDisplayingItemCount(lv)).ToList().ForEach(i => command.Execute());
         });
 
         public DelegateCommand<ListView> CursorPageDownCommand => new DelegateCommand<ListView>((lv) =>
         {
             var command = CursorDownCommand;
-            Enumerable.Range(0, GetDisplayingItemCount(lv)).ToList().ForEach(i => command.Execute(lv));
+            Enumerable.Range(0, GetDisplayingItemCount(lv)).ToList().ForEach(i => command.Execute());
         });
 
         public DelegateCommand ToggleIgnoreFileCommand => new DelegateCommand(() =>
@@ -104,7 +99,7 @@
         public DelegateCommand<ListView> ToggleIgnoreFileAndForwardCommand => new DelegateCommand<ListView>((lv) =>
         {
             ToggleIgnoreFileCommand.Execute();
-            CursorDownCommand.Execute(lv);
+            CursorDownCommand.Execute();
         });
 
         public DelegateCommand ToggleMarkCommand => new DelegateCommand(() =>

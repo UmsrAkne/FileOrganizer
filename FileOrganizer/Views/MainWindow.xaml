@@ -18,6 +18,10 @@
 
     <Window.InputBindings>
 
+        <KeyBinding Key="J" Command="{Binding CursorDownCommand}" />
+
+        <KeyBinding Key="K" Command="{Binding CursorUpCommand}" />
+
         <KeyBinding
             Key="U"
             Command="{Binding CursorPageUpCommand}"
