@@ -50,7 +50,7 @@
             var number = 1;
             Files.ForEach(f =>
             {
-                f.TentativeName = $"{ number++.ToString("0000")}_{f.Name}";
+                f.TentativeName = $"{number++.ToString("0000")}_{f.Name}";
                 if (!File.Exists(f.FileInfo.FullName) && File.Exists($"{f.FileInfo.DirectoryName}\\{f.TentativeName}"))
                 {
                     return;
@@ -70,7 +70,7 @@
 
             withoutIgnoreFiles.ForEach(f =>
             {
-                f.TentativeName = $"{ number++.ToString("0000")}_{f.Name}";
+                f.TentativeName = $"{number++.ToString("0000")}_{f.Name}";
                 if (!File.Exists(f.FileInfo.FullName) && File.Exists($"{f.FileInfo.DirectoryName}\\{f.TentativeName}"))
                 {
                     return;
