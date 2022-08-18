@@ -80,7 +80,17 @@
 
         public DelegateCommand ToggleIgnoreFileCommand => new DelegateCommand(() =>
         {
-            if (SelectedItem != null)
+            if (ExtendFileInfos.Where(f => f.IsSelected).Count() >= 2)
+            {
+                ExtendFileInfos.Where(f => f.IsSelected)
+                .ToList()
+                .ForEach(f =>
+                {
+                    f.Ignore = !f.Ignore;
+                    IgnoreFileCount += f.Ignore ? 1 : -1;
+                });
+            }
+            else if (SelectedItem != null)
             {
                 SelectedItem.Ignore = !SelectedItem.Ignore;
                 IgnoreFileCount += SelectedItem.Ignore ? 1 : -1;
