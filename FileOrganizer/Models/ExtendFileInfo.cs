@@ -9,6 +9,7 @@
         private int index;
         private bool playing;
         private bool marked;
+        private bool isSelected;
 
         public ExtendFileInfo(string path)
         {
@@ -30,5 +31,7 @@
         public bool Playing { get => playing; set => SetProperty(ref playing, value); }
 
         public bool Marked { get => marked; set => SetProperty(ref marked, value); }
+
+        public bool IsSelected { get => isSelected; set => SetProperty(ref isSelected, value); }
     }
 }
