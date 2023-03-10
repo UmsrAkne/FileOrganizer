@@ -1,15 +1,15 @@
-﻿namespace FileOrganizer.ViewModels
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Collections.ObjectModel;
-    using System.Linq;
-    using System.Windows.Controls;
-    using FileOrganizer.Models;
-    using Prism.Commands;
-    using Prism.Mvvm;
-    using WMPLib;
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Windows.Controls;
+using FileOrganizer.Models;
+using Prism.Commands;
+using Prism.Mvvm;
+using WMPLib;
 
+namespace FileOrganizer.ViewModels
+{
     public class MainWindowViewModel : BindableBase
     {
         private string title = "File Organaizer";
@@ -23,15 +23,7 @@
         private int maximumIndex;
         private int markedFileCount;
 
-        public MainWindowViewModel()
-        {
-        }
-
-        public string Title
-        {
-            get { return title; }
-            set { SetProperty(ref title, value); }
-        }
+        public string Title { get => title; set => SetProperty(ref title, value); }
 
         public ObservableCollection<ExtendFileInfo> ExtendFileInfos
         {
@@ -80,7 +72,7 @@
 
         public DelegateCommand ToggleIgnoreFileCommand => new DelegateCommand(() =>
         {
-            if (ExtendFileInfos.Where(f => f.IsSelected).Count() >= 2)
+            if (ExtendFileInfos.Count(f => f.IsSelected) >= 2)
             {
                 ExtendFileInfos.Where(f => f.IsSelected)
                 .ToList()
@@ -173,14 +165,9 @@
 
         public DelegateCommand ReloadCommand => new DelegateCommand(() =>
         {
-            if (IgnoreFileIsVisible)
-            {
-                ExtendFileInfos = new ObservableCollection<ExtendFileInfo>(doubleFileList.GetFiles());
-            }
-            else
-            {
-                ExtendFileInfos = new ObservableCollection<ExtendFileInfo>(doubleFileList.GetExceptedIgnoreFiles());
-            }
+            ExtendFileInfos = IgnoreFileIsVisible
+                ? new ObservableCollection<ExtendFileInfo>(doubleFileList.GetFiles())
+                : new ObservableCollection<ExtendFileInfo>(doubleFileList.GetExceptedIgnoreFiles());
         });
 
         public DelegateCommand ReverseCommand => new DelegateCommand(() =>
@@ -218,14 +205,7 @@
 
             foreach (var f in ExtendFileInfos)
             {
-                if (f.Ignore)
-                {
-                    f.Index = 0;
-                }
-                else
-                {
-                    f.Index = index++;
-                }
+                f.Index = f.Ignore ? 0 : index++;
             }
 
             MaximumIndex = index - 1;
