@@ -1,10 +1,10 @@
-﻿namespace FileOrganizer.Models
-{
-    using System.Linq;
-    using System.Windows;
-    using FileOrganizer.ViewModels;
-    using Microsoft.Xaml.Behaviors;
+﻿using System.Linq;
+using System.Windows;
+using FileOrganizer.ViewModels;
+using Microsoft.Xaml.Behaviors;
 
+namespace FileOrganizer.Models
+{
     public class DropBehavior : Behavior<Window>
     {
         protected override void OnAttached()
