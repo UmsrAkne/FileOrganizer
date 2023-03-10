@@ -2,15 +2,20 @@
     x:Class="FileOrganizer.Views.MainWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
     xmlns:m="clr-namespace:FileOrganizer.Models"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:prism="http://prismlibrary.com/"
+    xmlns:viewModels="clr-namespace:FileOrganizer.ViewModels"
     x:Name="Window"
     Title="{Binding Title}"
     Width="800"
     Height="600"
+    d:DataContext="{d:DesignInstance viewModels:MainWindowViewModel}"
     prism:ViewModelLocator.AutoWireViewModel="True"
-    AllowDrop="True">
+    AllowDrop="True"
+    mc:Ignorable="d">
 
     <i:Interaction.Behaviors>
         <m:DropBehavior />
