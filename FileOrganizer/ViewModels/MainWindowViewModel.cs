@@ -10,15 +10,17 @@ using WMPLib;
 
 namespace FileOrganizer.ViewModels
 {
+    // ReSharper disable once ClassNeverInstantiated.Global
     public class MainWindowViewModel : BindableBase
     {
-        private string title = "File Organaizer";
+        private readonly WindowsMediaPlayer windowsMediaPlayer = new WindowsMediaPlayer();
+
+        private string title = "File Organizer";
         private ObservableCollection<ExtendFileInfo> extendFileInfos = new ObservableCollection<ExtendFileInfo>();
         private ExtendFileInfo selectedItem;
         private int selectedFileIndex;
         private DoubleFileList doubleFileList = new DoubleFileList(new List<ExtendFileInfo>());
         private bool ignoreFileIsVisible = true;
-        private WindowsMediaPlayer windowsMediaPlayer = new WindowsMediaPlayer();
         private int ignoreFileCount;
         private int maximumIndex;
         private int markedFileCount;
@@ -28,7 +30,7 @@ namespace FileOrganizer.ViewModels
         public ObservableCollection<ExtendFileInfo> ExtendFileInfos
         {
             get => extendFileInfos;
-            set => SetProperty(ref extendFileInfos, value);
+            private set => SetProperty(ref extendFileInfos, value);
         }
 
         public ExtendFileInfo SelectedItem { get => selectedItem; set => SetProperty(ref selectedItem, value); }
