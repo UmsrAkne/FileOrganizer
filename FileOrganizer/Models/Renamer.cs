@@ -22,6 +22,7 @@ namespace FileOrganizer.Models
             foreach (var f in extendFileInfos)
             {
                 f.FileInfo.MoveTo($"{f.FileInfo.Directory}\\{f.TentativeName}");
+                f.RaiseNamePropertyChanged();
             }
         }
 
@@ -51,6 +52,7 @@ namespace FileOrganizer.Models
             extendFileInfos.ForEach(f =>
             {
                 f.FileInfo.MoveTo($"{f.FileInfo.Directory}\\{f.TentativeName}");
+                f.RaiseNamePropertyChanged();
             });
         }
     }

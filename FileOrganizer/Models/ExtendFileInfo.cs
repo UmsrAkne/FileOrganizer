@@ -33,5 +33,10 @@
         public bool Marked { get => marked; set => SetProperty(ref marked, value); }
 
         public bool IsSelected { get => isSelected; set => SetProperty(ref isSelected, value); }
+
+        public void RaiseNamePropertyChanged()
+        {
+            RaisePropertyChanged(nameof(Name));
+        }
     }
 }
