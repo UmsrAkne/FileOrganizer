@@ -19,11 +19,11 @@ namespace FileOrganizer.ViewModels
         private ObservableCollection<ExtendFileInfo> extendFileInfos = new ObservableCollection<ExtendFileInfo>();
         private ExtendFileInfo selectedItem;
         private int selectedFileIndex;
-        private DoubleFileList doubleFileList = new DoubleFileList(new List<ExtendFileInfo>());
         private bool ignoreFileIsVisible = true;
         private int ignoreFileCount;
         private int maximumIndex;
         private int markedFileCount;
+        private Renamer renamer = new Renamer();
 
         public string Title { get => title; set => SetProperty(ref title, value); }
 
@@ -138,38 +138,28 @@ namespace FileOrganizer.ViewModels
         public DelegateCommand DisplayIgnoreFileCommand => new DelegateCommand(() =>
         {
             IgnoreFileIsVisible = true;
-            ReloadCommand.Execute();
         });
 
         public DelegateCommand HideIgnoreFileCommand => new DelegateCommand(() =>
         {
             IgnoreFileIsVisible = false;
-            ReloadCommand.Execute();
         });
 
         public DelegateCommand AppendPrefixToIgnoreFilesCommand => new DelegateCommand(() =>
         {
-            doubleFileList.AppendPrefixToIgnoreFiles("ignore");
-            ReloadCommand.Execute();
+            var ignoreFiles = ExtendFileInfos.Where(f => f.Ignore);
+            renamer.AppendPrefix("ignore_", ignoreFiles);
         });
 
         public DelegateCommand AppendNumberCommand => new DelegateCommand(() =>
         {
-            doubleFileList.AppendNumber();
-            ReloadCommand.Execute();
+            renamer.AppendNumber(ExtendFileInfos);
         });
 
         public DelegateCommand AppendNumberWithoutIgnoreFileCommand => new DelegateCommand(() =>
         {
-            doubleFileList.AppendNumberWithoutIgnoreFile();
-            ReloadCommand.Execute();
-        });
-
-        public DelegateCommand ReloadCommand => new DelegateCommand(() =>
-        {
-            ExtendFileInfos = IgnoreFileIsVisible
-                ? new ObservableCollection<ExtendFileInfo>(doubleFileList.GetFiles())
-                : new ObservableCollection<ExtendFileInfo>(doubleFileList.GetExceptedIgnoreFiles());
+            var files = ExtendFileInfos.Where(f => !f.Ignore);
+            renamer.AppendNumber(files);
         });
 
         public DelegateCommand ReverseCommand => new DelegateCommand(() =>
@@ -182,7 +172,7 @@ namespace FileOrganizer.ViewModels
         {
             if (SelectedItem != null || SelectedItem.IsSoundFile)
             {
-                doubleFileList.GetFiles().ForEach(f => f.Playing = false);
+                ExtendFileInfos.ToList().ForEach(f => f.Playing = false);
                 SelectedItem.Playing = true;
                 windowsMediaPlayer.URL = SelectedItem.FileInfo.FullName;
                 windowsMediaPlayer.controls.play();
@@ -193,7 +183,6 @@ namespace FileOrganizer.ViewModels
         public void SetFiles(List<ExtendFileInfo> files)
         {
             ExtendFileInfos = new ObservableCollection<ExtendFileInfo>(files);
-            doubleFileList = new DoubleFileList(files);
 
             MarkedFileCount = 0;
             IgnoreFileCount = 0;
