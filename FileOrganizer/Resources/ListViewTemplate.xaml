@@ -6,7 +6,7 @@
 
     <m:NumberFormatConverter x:Key="NumberFormatConverter" />
 
-    <DataTemplate x:Key="ListViewItemTemplate">
+    <DataTemplate x:Key="ListViewItemTemplate" DataType="{x:Type m:ExtendFileInfo}">
 
         <ContentControl Height="{Binding ElementName=Window, Path=DataContext.ListViewItemLineHeight}">
 

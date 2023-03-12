@@ -87,7 +87,7 @@
 
         <ContentControl prism:RegionManager.RegionName="ContentRegion" />
 
-        <Menu>
+        <Menu Grid.Row="0">
             <MenuItem Header="表示">
                 <MenuItem Command="{Binding DisplayIgnoreFileCommand}" Header="無視しているファイルを表示" />
                 <MenuItem Command="{Binding HideIgnoreFileCommand}" Header="無視しているファイルを非表示" />
