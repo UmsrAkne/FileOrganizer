@@ -184,6 +184,11 @@ namespace FileOrganizer.ViewModels
         {
             ExtendFileInfos = new ObservableCollection<ExtendFileInfo>(files);
 
+            if (ExtendFileInfos.Count > 0)
+            {
+                SelectedFileIndex = 0;
+            }
+
             MarkedFileCount = 0;
             IgnoreFileCount = 0;
 
