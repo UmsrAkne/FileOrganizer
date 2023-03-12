@@ -3,10 +3,6 @@
     <Border x:Key="StatusBarContents">
 
         <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition />
-            </Grid.ColumnDefinitions>
-
             <Grid.RowDefinitions>
                 <RowDefinition />
                 <RowDefinition />
