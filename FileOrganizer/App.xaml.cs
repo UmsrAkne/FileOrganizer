@@ -1,10 +1,9 @@
-﻿namespace FileOrganizer
-{
-    using System.Windows;
-    using FileOrganizer.Views;
-    using Prism.Ioc;
-    using Prism.Modularity;
+﻿using System.Windows;
+using FileOrganizer.Views;
+using Prism.Ioc;
 
+namespace FileOrganizer
+{
     /// <summary>
     /// Interaction logic for App.xaml
     /// </summary>

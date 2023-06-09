@@ -170,7 +170,12 @@ namespace FileOrganizer.ViewModels
 
         public DelegateCommand PlaySoundCommand => new DelegateCommand(() =>
         {
-            if (SelectedItem != null || SelectedItem.IsSoundFile)
+            if (SelectedItem == null)
+            {
+                return;
+            }
+
+            if (SelectedItem.IsSoundFile)
             {
                 ExtendFileInfos.ToList().ForEach(f => f.Playing = false);
                 SelectedItem.Playing = true;
