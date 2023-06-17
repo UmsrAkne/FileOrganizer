@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Windows.Controls;
 using FileOrganizer.Models;
@@ -181,7 +182,10 @@ namespace FileOrganizer.ViewModels
                 SelectedItem.Playing = true;
                 windowsMediaPlayer.URL = SelectedItem.FileInfo.FullName;
                 windowsMediaPlayer.controls.play();
+                return;
             }
+
+            Process.Start(SelectedItem.FileInfo.FullName);
         });
 
         // 基本的にビヘイビアから呼び出される
