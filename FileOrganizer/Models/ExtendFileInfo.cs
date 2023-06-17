@@ -26,7 +26,7 @@
 
         public string TentativeName { get; set; }
 
-        public bool IsSoundFile => FileInfo.Extension == "mp3" || FileInfo.Extension == "ogg" || FileInfo.Extension == "wma";
+        public bool IsSoundFile => FileInfo.Extension == ".mp3";
 
         public bool Playing { get => playing; set => SetProperty(ref playing, value); }
 
