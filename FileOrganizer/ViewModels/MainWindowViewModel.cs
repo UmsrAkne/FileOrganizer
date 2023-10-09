@@ -16,6 +16,8 @@ namespace FileOrganizer.ViewModels
     {
         private readonly WindowsMediaPlayer windowsMediaPlayer = new WindowsMediaPlayer();
 
+        private readonly Renamer renamer = new Renamer();
+
         private string title = "File Organizer";
         private ObservableCollection<ExtendFileInfo> extendFileInfos = new ObservableCollection<ExtendFileInfo>();
         private ExtendFileInfo selectedItem;
@@ -24,7 +26,6 @@ namespace FileOrganizer.ViewModels
         private int ignoreFileCount;
         private int maximumIndex;
         private int markedFileCount;
-        private Renamer renamer = new Renamer();
 
         public string Title { get => title; set => SetProperty(ref title, value); }
 
@@ -38,15 +39,7 @@ namespace FileOrganizer.ViewModels
 
         public int SelectedFileIndex { get => selectedFileIndex; set => SetProperty(ref selectedFileIndex, value); }
 
-        public bool IgnoreFileIsVisible { get => ignoreFileIsVisible; set => SetProperty(ref ignoreFileIsVisible, value); }
-
-        public int IgnoreFileCount { get => ignoreFileCount; set => SetProperty(ref ignoreFileCount, value); }
-
         public int MaximumIndex { get => maximumIndex; set => SetProperty(ref maximumIndex, value); }
-
-        public int MarkedFileCount { get => markedFileCount; set => SetProperty(ref markedFileCount, value); }
-
-        public int ListViewItemLineHeight => 15;
 
         public DelegateCommand CursorUpCommand => new DelegateCommand(() =>
         {
@@ -187,6 +180,14 @@ namespace FileOrganizer.ViewModels
 
             Process.Start(SelectedItem.FileInfo.FullName);
         });
+
+        private bool IgnoreFileIsVisible { get => ignoreFileIsVisible; set => SetProperty(ref ignoreFileIsVisible, value); }
+
+        private int IgnoreFileCount { get => ignoreFileCount; set => SetProperty(ref ignoreFileCount, value); }
+
+        private int MarkedFileCount { get => markedFileCount; set => SetProperty(ref markedFileCount, value); }
+
+        private int ListViewItemLineHeight => 15;
 
         // 基本的にビヘイビアから呼び出される
         public void SetFiles(List<ExtendFileInfo> files)
