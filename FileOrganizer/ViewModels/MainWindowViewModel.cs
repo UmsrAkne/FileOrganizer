@@ -181,11 +181,11 @@ namespace FileOrganizer.ViewModels
             Process.Start(SelectedItem.FileInfo.FullName);
         });
 
-        private bool IgnoreFileIsVisible { get => ignoreFileIsVisible; set => SetProperty(ref ignoreFileIsVisible, value); }
+        public bool IgnoreFileIsVisible { get => ignoreFileIsVisible; set => SetProperty(ref ignoreFileIsVisible, value); }
 
-        private int IgnoreFileCount { get => ignoreFileCount; set => SetProperty(ref ignoreFileCount, value); }
+        public int IgnoreFileCount { get => ignoreFileCount; set => SetProperty(ref ignoreFileCount, value); }
 
-        private int MarkedFileCount { get => markedFileCount; set => SetProperty(ref markedFileCount, value); }
+        public int MarkedFileCount { get => markedFileCount; set => SetProperty(ref markedFileCount, value); }
 
         private int ListViewItemLineHeight => 15;
 
