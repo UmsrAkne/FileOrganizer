@@ -14,6 +14,7 @@
     xmlns:m="clr-namespace:FileOrganizer.Models"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:prism="http://prismlibrary.com/"
+    xmlns:system="clr-namespace:System;assembly=mscorlib"
     xmlns:viewModels="clr-namespace:FileOrganizer.ViewModels"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
@@ -91,6 +92,25 @@
             <MenuItem Header="表示">
                 <MenuItem Command="{Binding DisplayIgnoreFileCommand}" Header="無視しているファイルを表示" />
                 <MenuItem Command="{Binding HideIgnoreFileCommand}" Header="無視しているファイルを非表示" />
+
+                <MenuItem Command="{Binding SetFontSizeCommand}" Header="フォントサイズ 小">
+                    <MenuItem.CommandParameter>
+                        <system:Double>12.0</system:Double>
+                    </MenuItem.CommandParameter>
+                </MenuItem>
+
+                <MenuItem Command="{Binding SetFontSizeCommand}" Header="フォントサイズ 中">
+                    <MenuItem.CommandParameter>
+                        <system:Double>14.0</system:Double>
+                    </MenuItem.CommandParameter>
+                </MenuItem>
+
+                <MenuItem Command="{Binding SetFontSizeCommand}" Header="フォントサイズ 大">
+                    <MenuItem.CommandParameter>
+                        <system:Double>16.0</system:Double>
+                    </MenuItem.CommandParameter>
+                </MenuItem>
+
             </MenuItem>
 
             <MenuItem Header="編集">

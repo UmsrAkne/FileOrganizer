@@ -26,6 +26,7 @@ namespace FileOrganizer.ViewModels
         private int ignoreFileCount;
         private int maximumIndex;
         private int markedFileCount;
+        private double fontSize = 12.0;
 
         public string Title { get => title; set => SetProperty(ref title, value); }
 
@@ -40,6 +41,13 @@ namespace FileOrganizer.ViewModels
         public int SelectedFileIndex { get => selectedFileIndex; set => SetProperty(ref selectedFileIndex, value); }
 
         public int MaximumIndex { get => maximumIndex; set => SetProperty(ref maximumIndex, value); }
+
+        public double FontSize { get => fontSize; set => SetProperty(ref fontSize, value); }
+
+        public DelegateCommand<object> SetFontSizeCommand => new DelegateCommand<object>((size) =>
+        {
+            FontSize = (double)size;
+        });
 
         public DelegateCommand CursorUpCommand => new DelegateCommand(() =>
         {
