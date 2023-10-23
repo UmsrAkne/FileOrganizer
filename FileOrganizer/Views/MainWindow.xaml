@@ -1,21 +1,22 @@
 ﻿<Window
+    AllowDrop="True"
+    Height="600"
+    Title="{Binding Title}"
+    Width="800"
+    d:DataContext="{d:DesignInstance viewModels:MainWindowViewModel}"
+    mc:Ignorable="d"
+    prism:ViewModelLocator.AutoWireViewModel="True"
     x:Class="FileOrganizer.Views.MainWindow"
+    x:Name="Window"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
     xmlns:m="clr-namespace:FileOrganizer.Models"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:prism="http://prismlibrary.com/"
+    xmlns:system="clr-namespace:System;assembly=mscorlib"
     xmlns:viewModels="clr-namespace:FileOrganizer.ViewModels"
-    x:Name="Window"
-    Title="{Binding Title}"
-    Width="800"
-    Height="600"
-    d:DataContext="{d:DesignInstance viewModels:MainWindowViewModel}"
-    prism:ViewModelLocator.AutoWireViewModel="True"
-    AllowDrop="True"
-    mc:Ignorable="d">
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <i:Interaction.Behaviors>
         <m:DropBehavior />
@@ -23,47 +24,47 @@
 
     <Window.InputBindings>
 
-        <KeyBinding Key="J" Command="{Binding CursorDownCommand}" />
+        <KeyBinding Command="{Binding CursorDownCommand}" Key="J" />
 
-        <KeyBinding Key="K" Command="{Binding CursorUpCommand}" />
+        <KeyBinding Command="{Binding CursorUpCommand}" Key="K" />
 
         <KeyBinding
-            Key="U"
             Command="{Binding CursorPageUpCommand}"
-            CommandParameter="{Binding ElementName=FileListView}" />
+            CommandParameter="{Binding ElementName=FileListView}"
+            Key="U" />
 
         <KeyBinding
-            Key="D"
             Command="{Binding CursorPageDownCommand}"
-            CommandParameter="{Binding ElementName=FileListView}" />
+            CommandParameter="{Binding ElementName=FileListView}"
+            Key="D" />
 
         <KeyBinding
-            Key="H"
             Command="{Binding CursorPageUpCommand}"
-            CommandParameter="{Binding ElementName=FileListView}" />
+            CommandParameter="{Binding ElementName=FileListView}"
+            Key="H" />
 
         <KeyBinding
-            Key="L"
             Command="{Binding CursorPageDownCommand}"
-            CommandParameter="{Binding ElementName=FileListView}" />
+            CommandParameter="{Binding ElementName=FileListView}"
+            Key="L" />
 
-        <KeyBinding Key="N" Command="{Binding JumpToNextMarkCommand}" />
+        <KeyBinding Command="{Binding JumpToNextMarkCommand}" Key="N" />
 
         <KeyBinding
-            Key="N"
             Command="{Binding JumpToPrevMarkCommand}"
+            Key="N"
             Modifiers="Shift" />
 
-        <KeyBinding Key="I" Command="{Binding ToggleIgnoreFileCommand}" />
+        <KeyBinding Command="{Binding ToggleIgnoreFileCommand}" Key="I" />
 
         <KeyBinding
-            Key="I"
             Command="{Binding ToggleIgnoreFileAndForwardCommand}"
+            Key="I"
             Modifiers="Shift" />
 
-        <KeyBinding Key="M" Command="{Binding ToggleMarkCommand}" />
+        <KeyBinding Command="{Binding ToggleMarkCommand}" Key="M" />
 
-        <KeyBinding Key="Return" Command="{Binding PlaySoundCommand}" />
+        <KeyBinding Command="{Binding PlaySoundCommand}" Key="Return" />
 
     </Window.InputBindings>
 
@@ -91,6 +92,25 @@
             <MenuItem Header="表示">
                 <MenuItem Command="{Binding DisplayIgnoreFileCommand}" Header="無視しているファイルを表示" />
                 <MenuItem Command="{Binding HideIgnoreFileCommand}" Header="無視しているファイルを非表示" />
+
+                <MenuItem Command="{Binding SetFontSizeCommand}" Header="フォントサイズ 小">
+                    <MenuItem.CommandParameter>
+                        <system:Double>12.0</system:Double>
+                    </MenuItem.CommandParameter>
+                </MenuItem>
+
+                <MenuItem Command="{Binding SetFontSizeCommand}" Header="フォントサイズ 中">
+                    <MenuItem.CommandParameter>
+                        <system:Double>14.0</system:Double>
+                    </MenuItem.CommandParameter>
+                </MenuItem>
+
+                <MenuItem Command="{Binding SetFontSizeCommand}" Header="フォントサイズ 大">
+                    <MenuItem.CommandParameter>
+                        <system:Double>16.0</system:Double>
+                    </MenuItem.CommandParameter>
+                </MenuItem>
+
             </MenuItem>
 
             <MenuItem Header="編集">
@@ -105,14 +125,14 @@
         </Menu>
 
         <ListView
-            x:Name="FileListView"
-            Grid.Row="1"
             AlternationCount="2"
+            Grid.Row="1"
             ItemContainerStyle="{StaticResource ResourceKey=ListViewItemContainerStyle}"
             ItemTemplate="{StaticResource ResourceKey=ListViewItemTemplate}"
             ItemsSource="{Binding ExtendFileInfos}"
             SelectedIndex="{Binding SelectedFileIndex}"
-            SelectedItem="{Binding SelectedItem}">
+            SelectedItem="{Binding SelectedItem}"
+            x:Name="FileListView">
 
             <i:Interaction.Behaviors>
                 <m:CursorBehavior />
