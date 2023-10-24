@@ -10,6 +10,7 @@ namespace FileOrganizer.Models
     {
         private List<ExtendFileInfo> files;
         private int cursorIndex = -1;
+        private bool containsIgnoreFiles = true;
 
         public FileContainer(IEnumerable<ExtendFileInfo> extendFileInfos)
         {
@@ -25,6 +26,8 @@ namespace FileOrganizer.Models
         private List<ExtendFileInfo> OriginalFiles { get; set; }
 
         public List<ExtendFileInfo> Files { get => files; set => SetProperty(ref files, value); }
+
+        public bool ContainsIgnoreFiles { get => containsIgnoreFiles; set => SetProperty(ref containsIgnoreFiles, value); }
 
         public int StartIndex { get; set; } = 1;
 
@@ -61,7 +64,10 @@ namespace FileOrganizer.Models
 
         public DelegateCommand ReloadCommand => new DelegateCommand(() =>
         {
-            Files = OriginalFiles.OrderBy(f => f.Name).ToList();
+            Files = OriginalFiles
+                .Where(f => ContainsIgnoreFiles || !f.Ignore)
+                .OrderBy(f => f.Name).ToList();
+
             var index = StartIndex;
 
             foreach (var f in Files.Where(f => !f.Ignore))

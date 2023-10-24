@@ -114,5 +114,24 @@ namespace FileOrganizerTest.Models
             Assert.That(files[1].Index, Is.EqualTo(0), "このオブジェクトはカウントに含まれないので 0 のまま");
             Assert.That(files[2].Index, Is.EqualTo(2));
         }
+
+        [Test]
+        public void ReloadCommandTest_無視ファイルを除く()
+        {
+            var files = new List<ExtendFileInfo>()
+            {
+                new ExtendFileInfo("c:\\a") { Index = 0, },
+                new ExtendFileInfo("c:\\b") { Index = 0, Ignore = true, },
+                new ExtendFileInfo("c:\\c") { Index = 0, },
+            };
+
+            var fileContainer = new FileContainer(files) { StartIndex = 1, ContainsIgnoreFiles = false, };
+
+            fileContainer.ReloadCommand.Execute();
+
+            Assert.That(fileContainer.Files.Count, Is.EqualTo(2), "無視しているファイルが一つあるので、その分カウントが減っている");
+            Assert.That(fileContainer.Files[0].FileInfo.Name, Is.EqualTo("a"));
+            Assert.That(fileContainer.Files[1].FileInfo.Name, Is.EqualTo("c"));
+        }
     }
 }
