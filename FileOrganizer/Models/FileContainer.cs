@@ -14,7 +14,7 @@ namespace FileOrganizer.Models
         public FileContainer(IEnumerable<ExtendFileInfo> extendFileInfos)
         {
             OriginalFiles = extendFileInfos.ToList();
-            Files = OriginalFiles.OrderBy(f => f.Name).ToList();
+            ReloadCommand.Execute();
 
             if (Files.Count > 0)
             {
@@ -25,6 +25,8 @@ namespace FileOrganizer.Models
         private List<ExtendFileInfo> OriginalFiles { get; set; }
 
         public List<ExtendFileInfo> Files { get => files; set => SetProperty(ref files, value); }
+
+        public int StartIndex { get; set; } = 1;
 
         public int CursorIndex
         {
@@ -55,6 +57,17 @@ namespace FileOrganizer.Models
         public DelegateCommand<object> MoveCursorCommand => new DelegateCommand<object>((count) =>
         {
             CursorIndex += (int)count;
+        });
+
+        public DelegateCommand ReloadCommand => new DelegateCommand(() =>
+        {
+            Files = OriginalFiles.OrderBy(f => f.Name).ToList();
+            var index = StartIndex;
+
+            foreach (var f in Files.Where(f => !f.Ignore))
+            {
+                f.Index = index++;
+            }
         });
     }
 }

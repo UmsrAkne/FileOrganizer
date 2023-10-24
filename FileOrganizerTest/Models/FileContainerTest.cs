@@ -58,5 +58,42 @@ namespace FileOrganizerTest.Models
             fileContainer.MoveCursorCommand.Execute(moveCount);
             Assert.That(fileContainer.CursorIndex, Is.EqualTo(afterIndex));
         }
+
+        [Test]
+        public void ReloadCommandTest_StartIndex0()
+        {
+            var files = new List<ExtendFileInfo>()
+            {
+                new ExtendFileInfo("c:\\a"),
+                new ExtendFileInfo("c:\\b"),
+                new ExtendFileInfo("c:\\c"),
+            };
+
+            var fileContainer = new FileContainer(files) { StartIndex = 0, };
+            fileContainer.ReloadCommand.Execute();
+
+            Assert.That(files[0].Index, Is.EqualTo(0));
+            Assert.That(files[1].Index, Is.EqualTo(1));
+            Assert.That(files[2].Index, Is.EqualTo(2));
+        }
+
+        [Test]
+        public void ReloadCommandTest_StartIndex1()
+        {
+            var files = new List<ExtendFileInfo>()
+            {
+                new ExtendFileInfo("c:\\a"),
+                new ExtendFileInfo("c:\\b"),
+                new ExtendFileInfo("c:\\c"),
+            };
+
+            var fileContainer = new FileContainer(files) { StartIndex = 1, };
+
+            fileContainer.ReloadCommand.Execute();
+
+            Assert.That(files[0].Index, Is.EqualTo(1));
+            Assert.That(files[1].Index, Is.EqualTo(2));
+            Assert.That(files[2].Index, Is.EqualTo(3));
+        }
     }
 }
