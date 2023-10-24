@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Prism.Commands;
 using Prism.Mvvm;
 
 namespace FileOrganizer.Models
@@ -14,6 +15,11 @@ namespace FileOrganizer.Models
         {
             OriginalFiles = extendFileInfos.ToList();
             Files = OriginalFiles.OrderBy(f => f.Name).ToList();
+
+            if (Files.Count > 0)
+            {
+                CursorIndex = 0;
+            }
         }
 
         private List<ExtendFileInfo> OriginalFiles { get; set; }
@@ -23,21 +29,32 @@ namespace FileOrganizer.Models
         public int CursorIndex
         {
             get => cursorIndex;
-            set
+            private set
             {
                 if (Files == null || Files.Count == 0)
                 {
                     return;
                 }
 
-                if (value < 0 || value > Files.Count)
+                if (cursorIndex + value < 0)
                 {
-                    value = Math.Max(0, value);
-                    value = Math.Min(Files.Count - 1, value);
+                    SetProperty(ref cursorIndex, 0);
+                    return;
+                }
+
+                if (cursorIndex + value >= Files.Count)
+                {
+                    SetProperty(ref cursorIndex, Files.Count - 1);
+                    return;
                 }
 
                 SetProperty(ref cursorIndex, value);
             }
         }
+
+        public DelegateCommand<object> MoveCursorCommand => new DelegateCommand<object>((count) =>
+        {
+            CursorIndex += (int)count;
+        });
     }
 }
