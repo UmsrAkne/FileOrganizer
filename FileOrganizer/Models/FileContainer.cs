@@ -10,6 +10,7 @@ namespace FileOrganizer.Models
         private List<ExtendFileInfo> files;
         private int cursorIndex = -1;
         private bool containsIgnoreFiles = true;
+        private bool isReverseOrder;
 
         public FileContainer(IEnumerable<ExtendFileInfo> extendFileInfos)
         {
@@ -25,6 +26,8 @@ namespace FileOrganizer.Models
         public List<ExtendFileInfo> Files { get => files; private set => SetProperty(ref files, value); }
 
         public bool ContainsIgnoreFiles { get => containsIgnoreFiles; set => SetProperty(ref containsIgnoreFiles, value); }
+
+        public bool IsReverseOrder { get => isReverseOrder; set => SetProperty(ref isReverseOrder, value); }
 
         public int StartIndex { get; set; } = 1;
 
@@ -64,6 +67,11 @@ namespace FileOrganizer.Models
             Files = OriginalFiles
                 .Where(f => ContainsIgnoreFiles || !f.Ignore)
                 .OrderBy(f => f.Name).ToList();
+
+            if (IsReverseOrder)
+            {
+                Files.Reverse();
+            }
 
             var index = StartIndex;
 

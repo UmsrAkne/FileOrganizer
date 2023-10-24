@@ -133,5 +133,24 @@ namespace FileOrganizerTest.Models
             Assert.That(fileContainer.Files[0].FileInfo.Name, Is.EqualTo("a"));
             Assert.That(fileContainer.Files[1].FileInfo.Name, Is.EqualTo("c"));
         }
+
+        [Test]
+        public void ReloadCommandTest_リスト反転()
+        {
+            var files = new List<ExtendFileInfo>()
+            {
+                new ExtendFileInfo("c:\\a"),
+                new ExtendFileInfo("c:\\b"),
+                new ExtendFileInfo("c:\\c"),
+            };
+
+            var fileContainer = new FileContainer(files) { StartIndex = 1, IsReverseOrder = true, };
+
+            fileContainer.ReloadCommand.Execute();
+
+            Assert.That(fileContainer.Files[0].FileInfo.Name, Is.EqualTo("c"));
+            Assert.That(fileContainer.Files[1].FileInfo.Name, Is.EqualTo("b"));
+            Assert.That(fileContainer.Files[2].FileInfo.Name, Is.EqualTo("a"));
+        }
     }
 }
