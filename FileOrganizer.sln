@@ -5,6 +5,8 @@ VisualStudioVersion = 16.0.32228.343
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileOrganizer", "FileOrganizer\FileOrganizer.csproj", "{19750CC1-71AA-4FAC-BC45-4C83D2FD6E59}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileOrganizerTest", "FileOrganizerTest\FileOrganizerTest.csproj", "{842990D0-0535-4945-9160-DC1ABE597E56}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{19750CC1-71AA-4FAC-BC45-4C83D2FD6E59}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{19750CC1-71AA-4FAC-BC45-4C83D2FD6E59}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{19750CC1-71AA-4FAC-BC45-4C83D2FD6E59}.Release|Any CPU.Build.0 = Release|Any CPU
+		{842990D0-0535-4945-9160-DC1ABE597E56}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{842990D0-0535-4945-9160-DC1ABE597E56}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{842990D0-0535-4945-9160-DC1ABE597E56}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{842990D0-0535-4945-9160-DC1ABE597E56}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
