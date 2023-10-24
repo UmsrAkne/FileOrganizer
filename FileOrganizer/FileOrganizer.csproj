@@ -76,6 +76,7 @@
     <Compile Include="Models\CursorBehavior.cs" />
     <Compile Include="Models\DropBehavior.cs" />
     <Compile Include="Models\ExtendFileInfo.cs" />
+    <Compile Include="Models\FileContainer.cs" />
     <Compile Include="Models\NumberFormatConverter.cs" />
     <Compile Include="Models\Renamer.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
