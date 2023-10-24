@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Prism.Commands;
@@ -23,9 +22,7 @@ namespace FileOrganizer.Models
             }
         }
 
-        private List<ExtendFileInfo> OriginalFiles { get; set; }
-
-        public List<ExtendFileInfo> Files { get => files; set => SetProperty(ref files, value); }
+        public List<ExtendFileInfo> Files { get => files; private set => SetProperty(ref files, value); }
 
         public bool ContainsIgnoreFiles { get => containsIgnoreFiles; set => SetProperty(ref containsIgnoreFiles, value); }
 
@@ -75,5 +72,7 @@ namespace FileOrganizer.Models
                 f.Index = index++;
             }
         });
+
+        private List<ExtendFileInfo> OriginalFiles { get; set; }
     }
 }
