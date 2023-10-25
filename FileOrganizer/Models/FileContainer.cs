@@ -25,7 +25,17 @@ namespace FileOrganizer.Models
 
         public List<ExtendFileInfo> Files { get => files; private set => SetProperty(ref files, value); }
 
-        public bool ContainsIgnoreFiles { get => containsIgnoreFiles; set => SetProperty(ref containsIgnoreFiles, value); }
+        public bool ContainsIgnoreFiles
+        {
+            get => containsIgnoreFiles;
+            set
+            {
+                if (SetProperty(ref containsIgnoreFiles, value))
+                {
+                    ReloadCommand.Execute();
+                }
+            }
+        }
 
         public bool IsReverseOrder { get => isReverseOrder; set => SetProperty(ref isReverseOrder, value); }
 
