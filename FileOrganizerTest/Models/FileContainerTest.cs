@@ -135,6 +135,26 @@ namespace FileOrganizerTest.Models
         }
 
         [Test]
+        public void ReloadCommandTest_無視ファイル切り替え()
+        {
+            var files = new List<ExtendFileInfo>()
+            {
+                new ExtendFileInfo("c:\\a") { Index = 0, },
+                new ExtendFileInfo("c:\\b") { Index = 0, Ignore = true, },
+                new ExtendFileInfo("c:\\c") { Index = 0, },
+            };
+
+            var fileContainer = new FileContainer(files) { StartIndex = 1, };
+            Assert.That(fileContainer.Files.Count, Is.EqualTo(3), "デフォルト状態では要素数 3");
+
+            fileContainer.ContainsIgnoreFiles = false;
+            Assert.That(fileContainer.Files.Count, Is.EqualTo(2), "一つ無視するファイルがあるので要素数 2");
+
+            fileContainer.ContainsIgnoreFiles = true;
+            Assert.That(fileContainer.Files.Count, Is.EqualTo(3), "true に切り替えたら要素数が戻っているはず");
+        }
+
+        [Test]
         public void ReloadCommandTest_リスト反転()
         {
             var files = new List<ExtendFileInfo>()
