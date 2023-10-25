@@ -25,7 +25,17 @@ namespace FileOrganizer.Models
 
         public List<ExtendFileInfo> Files { get => files; private set => SetProperty(ref files, value); }
 
-        public bool ContainsIgnoreFiles { get => containsIgnoreFiles; set => SetProperty(ref containsIgnoreFiles, value); }
+        public bool ContainsIgnoreFiles
+        {
+            get => containsIgnoreFiles;
+            set
+            {
+                if (SetProperty(ref containsIgnoreFiles, value))
+                {
+                    ReloadCommand.Execute();
+                }
+            }
+        }
 
         public bool IsReverseOrder { get => isReverseOrder; set => SetProperty(ref isReverseOrder, value); }
 
@@ -38,6 +48,7 @@ namespace FileOrganizer.Models
             {
                 if (Files == null || Files.Count == 0)
                 {
+                    SetProperty(ref cursorIndex, -1);
                     return;
                 }
 
@@ -79,6 +90,8 @@ namespace FileOrganizer.Models
             {
                 f.Index = index++;
             }
+
+            CursorIndex = CursorIndex;
         });
 
         private List<ExtendFileInfo> OriginalFiles { get; set; }
