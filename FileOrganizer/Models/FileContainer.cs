@@ -48,6 +48,7 @@ namespace FileOrganizer.Models
             {
                 if (Files == null || Files.Count == 0)
                 {
+                    SetProperty(ref cursorIndex, -1);
                     return;
                 }
 
@@ -89,6 +90,8 @@ namespace FileOrganizer.Models
             {
                 f.Index = index++;
             }
+
+            CursorIndex = CursorIndex;
         });
 
         private List<ExtendFileInfo> OriginalFiles { get; set; }
