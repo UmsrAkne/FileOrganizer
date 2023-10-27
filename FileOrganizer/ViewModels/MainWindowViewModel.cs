@@ -51,15 +51,6 @@ namespace FileOrganizer.ViewModels
             FontSize = (double)size;
         });
 
-        public DelegateCommand ToggleMarkCommand => new DelegateCommand(() =>
-        {
-            if (SelectedItem != null)
-            {
-                SelectedItem.Marked = !SelectedItem.Marked;
-                MarkedFileCount += SelectedItem.Marked ? 1 : -1;
-            }
-        });
-
         public DelegateCommand JumpToNextMarkCommand => new DelegateCommand(() =>
         {
             var nextMark = ExtendFileInfos.Skip(SelectedFileIndex + 1).FirstOrDefault(f => f.Marked);

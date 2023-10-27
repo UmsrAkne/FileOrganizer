@@ -120,6 +120,12 @@ namespace FileOrganizer.Models
             ReloadCommand.Execute();
         });
 
+        public DelegateCommand<ExtendFileInfo> ToggleMarkCommand => new DelegateCommand<ExtendFileInfo>((f) =>
+        {
+            f.Marked = !f.Marked;
+            ReloadCommand.Execute();
+        });
+
         private List<ExtendFileInfo> OriginalFiles { get; set; }
     }
 }

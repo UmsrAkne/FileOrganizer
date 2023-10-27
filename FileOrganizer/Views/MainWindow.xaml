@@ -48,7 +48,10 @@
             CommandParameter="{Binding ElementName=FileListView, Path=SelectedItem}"
             Key="I" />
 
-        <KeyBinding Command="{Binding ToggleMarkCommand}" Key="M" />
+        <KeyBinding
+            Command="{Binding FileContainer.ToggleMarkCommand}"
+            CommandParameter="{Binding ElementName=FileListView, Path=SelectedItem}"
+            Key="M" />
 
         <KeyBinding Command="{Binding PlaySoundCommand}" Key="Return" />
 
