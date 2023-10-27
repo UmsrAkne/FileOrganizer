@@ -245,5 +245,27 @@ namespace FileOrganizerTest.Models
             fileContainer.JumpToPrevMarkedFileCommand.Execute();
             Assert.That(fileContainer.CursorIndex, Is.EqualTo(0), "次のマーク位置は 0");
         }
+
+        [Test]
+        public void JumpToMarkedFileCommandTest_マークなし()
+        {
+            var files = new List<ExtendFileInfo>()
+            {
+                new ExtendFileInfo("c:\\a"),
+                new ExtendFileInfo("c:\\b"),
+                new ExtendFileInfo("c:\\c"),
+                new ExtendFileInfo("c:\\d"),
+            };
+
+            var fileContainer = new FileContainer(files);
+            Assert.That(fileContainer.CursorIndex, Is.EqualTo(0), "デフォルトのカーソル位置");
+
+            fileContainer.JumpToNextMarkedFileCommand.Execute();
+            Assert.That(fileContainer.CursorIndex, Is.EqualTo(0), "マークなしのため変化しない");
+
+            fileContainer.JumpToPrevMarkedFileCommand.Execute();
+            Assert.That(fileContainer.CursorIndex, Is.EqualTo(0), "マークなしのため変化しない");
+        }
+
     }
 }
