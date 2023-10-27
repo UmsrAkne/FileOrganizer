@@ -36,10 +36,10 @@
             </KeyBinding.CommandParameter>
         </KeyBinding>
 
-        <KeyBinding Command="{Binding JumpToNextMarkCommand}" Key="N" />
+        <KeyBinding Command="{Binding FileContainer.JumpToNextMarkedFileCommand}" Key="N" />
 
         <KeyBinding
-            Command="{Binding JumpToPrevMarkCommand}"
+            Command="{Binding FileContainer.JumpToPrevMarkedFileCommand}"
             Key="N"
             Modifiers="Shift" />
 
