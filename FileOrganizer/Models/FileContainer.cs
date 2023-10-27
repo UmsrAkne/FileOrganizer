@@ -73,6 +73,26 @@ namespace FileOrganizer.Models
             CursorIndex += (int)count;
         });
 
+        public DelegateCommand JumpToNextMarkedFileCommand => new DelegateCommand(() =>
+        {
+            var nextMark = Files.Skip(CursorIndex + 1).FirstOrDefault(f => f.Marked);
+
+            if (nextMark != null)
+            {
+                CursorIndex = Files.IndexOf(nextMark);
+            }
+        });
+
+        public DelegateCommand JumpToPrevMarkedFileCommand => new DelegateCommand(() =>
+        {
+            var prevMark = Files.Take(CursorIndex).Reverse().FirstOrDefault(f => f.Marked);
+
+            if (prevMark != null)
+            {
+                CursorIndex = Files.IndexOf(prevMark);
+            }
+        });
+
         public DelegateCommand ReloadCommand => new DelegateCommand(() =>
         {
             Files = OriginalFiles

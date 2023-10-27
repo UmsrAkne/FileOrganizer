@@ -201,5 +201,49 @@ namespace FileOrganizerTest.Models
             fileContainer.ReloadCommand.Execute();
             Assert.That(fileContainer.CursorIndex, Is.EqualTo(0), "設定できる最大値が 0");
         }
+
+        [Test]
+        public void JumpToNextMarkedFileCommandTest()
+        {
+            var files = new List<ExtendFileInfo>()
+            {
+                new ExtendFileInfo("c:\\a"),
+                new ExtendFileInfo("c:\\b") { Marked = true, },
+                new ExtendFileInfo("c:\\c"),
+                new ExtendFileInfo("c:\\d") { Marked = true, },
+            };
+
+            var fileContainer = new FileContainer(files);
+            Assert.That(fileContainer.CursorIndex, Is.EqualTo(0), "デフォルトのカーソル位置");
+
+            fileContainer.JumpToNextMarkedFileCommand.Execute();
+            Assert.That(fileContainer.CursorIndex, Is.EqualTo(1), "次のマーク位置は 1");
+
+            fileContainer.JumpToNextMarkedFileCommand.Execute();
+            Assert.That(fileContainer.CursorIndex, Is.EqualTo(3), "次のマーク位置は 3");
+        }
+
+        [Test]
+        public void JumpToPrevMarkedFileCommandTest()
+        {
+            var files = new List<ExtendFileInfo>()
+            {
+                new ExtendFileInfo("c:\\a") { Marked = true, },
+                new ExtendFileInfo("c:\\b"),
+                new ExtendFileInfo("c:\\c") { Marked = true, },
+                new ExtendFileInfo("c:\\d"),
+            };
+
+            var fileContainer = new FileContainer(files);
+            fileContainer.MoveCursorCommand.Execute(3);
+
+            Assert.That(fileContainer.CursorIndex, Is.EqualTo(3), "デフォルトのカーソル位置");
+
+            fileContainer.JumpToPrevMarkedFileCommand.Execute();
+            Assert.That(fileContainer.CursorIndex, Is.EqualTo(2), "次のマーク位置は 2");
+
+            fileContainer.JumpToPrevMarkedFileCommand.Execute();
+            Assert.That(fileContainer.CursorIndex, Is.EqualTo(0), "次のマーク位置は 0");
+        }
     }
 }
