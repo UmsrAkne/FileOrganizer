@@ -24,29 +24,17 @@
 
     <Window.InputBindings>
 
-        <KeyBinding Command="{Binding CursorDownCommand}" Key="J" />
+        <KeyBinding Command="{Binding FileContainer.MoveCursorCommand}" Key="J">
+            <KeyBinding.CommandParameter>
+                <system:Int32>1</system:Int32>
+            </KeyBinding.CommandParameter>
+        </KeyBinding>
 
-        <KeyBinding Command="{Binding CursorUpCommand}" Key="K" />
-
-        <KeyBinding
-            Command="{Binding CursorPageUpCommand}"
-            CommandParameter="{Binding ElementName=FileListView}"
-            Key="U" />
-
-        <KeyBinding
-            Command="{Binding CursorPageDownCommand}"
-            CommandParameter="{Binding ElementName=FileListView}"
-            Key="D" />
-
-        <KeyBinding
-            Command="{Binding CursorPageUpCommand}"
-            CommandParameter="{Binding ElementName=FileListView}"
-            Key="H" />
-
-        <KeyBinding
-            Command="{Binding CursorPageDownCommand}"
-            CommandParameter="{Binding ElementName=FileListView}"
-            Key="L" />
+        <KeyBinding Command="{Binding FileContainer.MoveCursorCommand}" Key="K">
+            <KeyBinding.CommandParameter>
+                <system:Int32>-1</system:Int32>
+            </KeyBinding.CommandParameter>
+        </KeyBinding>
 
         <KeyBinding Command="{Binding JumpToNextMarkCommand}" Key="N" />
 
@@ -56,11 +44,6 @@
             Modifiers="Shift" />
 
         <KeyBinding Command="{Binding ToggleIgnoreFileCommand}" Key="I" />
-
-        <KeyBinding
-            Command="{Binding ToggleIgnoreFileAndForwardCommand}"
-            Key="I"
-            Modifiers="Shift" />
 
         <KeyBinding Command="{Binding ToggleMarkCommand}" Key="M" />
 
@@ -129,8 +112,8 @@
             Grid.Row="1"
             ItemContainerStyle="{StaticResource ResourceKey=ListViewItemContainerStyle}"
             ItemTemplate="{StaticResource ResourceKey=ListViewItemTemplate}"
-            ItemsSource="{Binding ExtendFileInfos}"
-            SelectedIndex="{Binding SelectedFileIndex}"
+            ItemsSource="{Binding FileContainer.Files}"
+            SelectedIndex="{Binding FileContainer.CursorIndex}"
             SelectedItem="{Binding SelectedItem}"
             x:Name="FileListView">
 

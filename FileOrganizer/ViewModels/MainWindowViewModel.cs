@@ -30,6 +30,8 @@ namespace FileOrganizer.ViewModels
 
         public string Title { get => title; set => SetProperty(ref title, value); }
 
+        public FileContainer FileContainer { get; set; }
+
         public ObservableCollection<ExtendFileInfo> ExtendFileInfos
         {
             get => extendFileInfos;
@@ -47,31 +49,6 @@ namespace FileOrganizer.ViewModels
         public DelegateCommand<object> SetFontSizeCommand => new DelegateCommand<object>((size) =>
         {
             FontSize = (double)size;
-        });
-
-        public DelegateCommand CursorUpCommand => new DelegateCommand(() =>
-        {
-            if (selectedFileIndex > 0)
-            {
-                SelectedFileIndex--;
-            }
-        });
-
-        public DelegateCommand CursorDownCommand => new DelegateCommand(() =>
-        {
-            SelectedFileIndex++;
-        });
-
-        public DelegateCommand<ListView> CursorPageUpCommand => new DelegateCommand<ListView>((lv) =>
-        {
-            var command = CursorUpCommand;
-            Enumerable.Range(0, GetDisplayingItemCount(lv)).ToList().ForEach(i => command.Execute());
-        });
-
-        public DelegateCommand<ListView> CursorPageDownCommand => new DelegateCommand<ListView>((lv) =>
-        {
-            var command = CursorDownCommand;
-            Enumerable.Range(0, GetDisplayingItemCount(lv)).ToList().ForEach(i => command.Execute());
         });
 
         public DelegateCommand ToggleIgnoreFileCommand => new DelegateCommand(() =>
@@ -100,12 +77,6 @@ namespace FileOrganizer.ViewModels
             }
 
             ReIndex();
-        });
-
-        public DelegateCommand ToggleIgnoreFileAndForwardCommand => new DelegateCommand(() =>
-        {
-            ToggleIgnoreFileCommand.Execute();
-            CursorDownCommand.Execute();
         });
 
         public DelegateCommand ToggleMarkCommand => new DelegateCommand(() =>
@@ -200,17 +171,11 @@ namespace FileOrganizer.ViewModels
         // 基本的にビヘイビアから呼び出される
         public void SetFiles(List<ExtendFileInfo> files)
         {
-            ExtendFileInfos = new ObservableCollection<ExtendFileInfo>(files);
-
-            if (ExtendFileInfos.Count > 0)
-            {
-                SelectedFileIndex = 0;
-            }
+            FileContainer = new FileContainer(files);
+            RaisePropertyChanged(nameof(FileContainer));
 
             MarkedFileCount = 0;
             IgnoreFileCount = 0;
-
-            ReIndex();
         }
 
         private void ReIndex()

@@ -44,7 +44,7 @@ namespace FileOrganizer.Models
         public int CursorIndex
         {
             get => cursorIndex;
-            private set
+            set
             {
                 if (Files == null || Files.Count == 0)
                 {
