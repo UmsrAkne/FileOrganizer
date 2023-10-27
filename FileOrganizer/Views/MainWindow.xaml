@@ -43,7 +43,10 @@
             Key="N"
             Modifiers="Shift" />
 
-        <KeyBinding Command="{Binding ToggleIgnoreFileCommand}" Key="I" />
+        <KeyBinding
+            Command="{Binding FileContainer.ToggleIgnoreCommand}"
+            CommandParameter="{Binding ElementName=FileListView, Path=SelectedItem}"
+            Key="I" />
 
         <KeyBinding Command="{Binding ToggleMarkCommand}" Key="M" />
 

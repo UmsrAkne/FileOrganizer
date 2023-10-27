@@ -114,6 +114,12 @@ namespace FileOrganizer.Models
             CursorIndex = CursorIndex;
         });
 
+        public DelegateCommand<ExtendFileInfo> ToggleIgnoreCommand => new DelegateCommand<ExtendFileInfo>((f) =>
+        {
+            f.Ignore = !f.Ignore;
+            ReloadCommand.Execute();
+        });
+
         private List<ExtendFileInfo> OriginalFiles { get; set; }
     }
 }

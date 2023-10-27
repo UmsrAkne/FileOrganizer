@@ -51,34 +51,6 @@ namespace FileOrganizer.ViewModels
             FontSize = (double)size;
         });
 
-        public DelegateCommand ToggleIgnoreFileCommand => new DelegateCommand(() =>
-        {
-            if (ExtendFileInfos.Count(f => f.IsSelected) >= 2)
-            {
-                ExtendFileInfos.Where(f => f.IsSelected)
-                .ToList()
-                .ForEach(f =>
-                {
-                    f.Ignore = !f.Ignore;
-                    IgnoreFileCount += f.Ignore ? 1 : -1;
-                });
-            }
-            else if (SelectedItem != null)
-            {
-                SelectedItem.Ignore = !SelectedItem.Ignore;
-                IgnoreFileCount += SelectedItem.Ignore ? 1 : -1;
-
-                if (!IgnoreFileIsVisible)
-                {
-                    var index = SelectedFileIndex; // Remove を行うとインデックスがリセットされるため変数に保持する。
-                    ExtendFileInfos.Remove(SelectedItem);
-                    SelectedFileIndex = index;
-                }
-            }
-
-            ReIndex();
-        });
-
         public DelegateCommand ToggleMarkCommand => new DelegateCommand(() =>
         {
             if (SelectedItem != null)
