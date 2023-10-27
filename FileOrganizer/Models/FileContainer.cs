@@ -52,13 +52,13 @@ namespace FileOrganizer.Models
                     return;
                 }
 
-                if (cursorIndex + value < 0)
+                if (value < 0)
                 {
                     SetProperty(ref cursorIndex, 0);
                     return;
                 }
 
-                if (cursorIndex + value >= Files.Count)
+                if (value >= Files.Count)
                 {
                     SetProperty(ref cursorIndex, Files.Count - 1);
                     return;
