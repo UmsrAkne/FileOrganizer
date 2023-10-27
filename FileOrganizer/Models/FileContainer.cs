@@ -44,7 +44,7 @@ namespace FileOrganizer.Models
         public int CursorIndex
         {
             get => cursorIndex;
-            private set
+            set
             {
                 if (Files == null || Files.Count == 0)
                 {
@@ -52,13 +52,13 @@ namespace FileOrganizer.Models
                     return;
                 }
 
-                if (cursorIndex + value < 0)
+                if (value < 0)
                 {
                     SetProperty(ref cursorIndex, 0);
                     return;
                 }
 
-                if (cursorIndex + value >= Files.Count)
+                if (value >= Files.Count)
                 {
                     SetProperty(ref cursorIndex, Files.Count - 1);
                     return;
@@ -71,6 +71,26 @@ namespace FileOrganizer.Models
         public DelegateCommand<object> MoveCursorCommand => new DelegateCommand<object>((count) =>
         {
             CursorIndex += (int)count;
+        });
+
+        public DelegateCommand JumpToNextMarkedFileCommand => new DelegateCommand(() =>
+        {
+            var nextMark = Files.Skip(CursorIndex + 1).FirstOrDefault(f => f.Marked);
+
+            if (nextMark != null)
+            {
+                CursorIndex = Files.IndexOf(nextMark);
+            }
+        });
+
+        public DelegateCommand JumpToPrevMarkedFileCommand => new DelegateCommand(() =>
+        {
+            var prevMark = Files.Take(CursorIndex).Reverse().FirstOrDefault(f => f.Marked);
+
+            if (prevMark != null)
+            {
+                CursorIndex = Files.IndexOf(prevMark);
+            }
         });
 
         public DelegateCommand ReloadCommand => new DelegateCommand(() =>
@@ -92,6 +112,18 @@ namespace FileOrganizer.Models
             }
 
             CursorIndex = CursorIndex;
+        });
+
+        public DelegateCommand<ExtendFileInfo> ToggleIgnoreCommand => new DelegateCommand<ExtendFileInfo>((f) =>
+        {
+            f.Ignore = !f.Ignore;
+            ReloadCommand.Execute();
+        });
+
+        public DelegateCommand<ExtendFileInfo> ToggleMarkCommand => new DelegateCommand<ExtendFileInfo>((f) =>
+        {
+            f.Marked = !f.Marked;
+            ReloadCommand.Execute();
         });
 
         private List<ExtendFileInfo> OriginalFiles { get; set; }
