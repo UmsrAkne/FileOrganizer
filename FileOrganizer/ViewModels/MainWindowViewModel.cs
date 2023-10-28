@@ -27,6 +27,7 @@ namespace FileOrganizer.ViewModels
         private int maximumIndex;
         private int markedFileCount;
         private double fontSize = 12.0;
+        private int listViewItemLineHeight = 15;
 
         public string Title { get => title; set => SetProperty(ref title, value); }
 
@@ -93,7 +94,11 @@ namespace FileOrganizer.ViewModels
 
         public int MarkedFileCount { get => markedFileCount; set => SetProperty(ref markedFileCount, value); }
 
-        private int ListViewItemLineHeight => 15;
+        public int ListViewItemLineHeight
+        {
+            get => listViewItemLineHeight;
+            private set => SetProperty(ref listViewItemLineHeight, value);
+        }
 
         // 基本的にビヘイビアから呼び出される
         public void SetFiles(List<ExtendFileInfo> files)
