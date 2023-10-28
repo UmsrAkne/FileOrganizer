@@ -80,9 +80,6 @@
 
         <Menu Grid.Row="0">
             <MenuItem Header="表示">
-                <MenuItem Command="{Binding DisplayIgnoreFileCommand}" Header="無視しているファイルを表示" />
-                <MenuItem Command="{Binding HideIgnoreFileCommand}" Header="無視しているファイルを非表示" />
-
                 <MenuItem Command="{Binding SetFontSizeCommand}" Header="フォントサイズ 小">
                     <MenuItem.CommandParameter>
                         <system:Double>12.0</system:Double>
@@ -107,10 +104,6 @@
                 <MenuItem Command="{Binding AppendNumberCommand}" Header="全てのファイル先頭に連番をつける" />
                 <MenuItem Command="{Binding AppendNumberWithoutIgnoreFileCommand}" Header="無視ファイル以外の先頭に連番をつける" />
                 <MenuItem Command="{Binding AppendPrefixToIgnoreFilesCommand}" Header="無視ファイルにプレフィックス" />
-            </MenuItem>
-
-            <MenuItem Header="ソート">
-                <MenuItem Command="{Binding ReverseCommand}" Header="リストを反転" />
             </MenuItem>
         </Menu>
 

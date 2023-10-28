@@ -51,36 +51,6 @@ namespace FileOrganizer.ViewModels
             FontSize = (double)size;
         });
 
-        public DelegateCommand JumpToNextMarkCommand => new DelegateCommand(() =>
-        {
-            var nextMark = ExtendFileInfos.Skip(SelectedFileIndex + 1).FirstOrDefault(f => f.Marked);
-
-            if (nextMark != null)
-            {
-                SelectedFileIndex = ExtendFileInfos.IndexOf(nextMark);
-            }
-        });
-
-        public DelegateCommand JumpToPrevMarkCommand => new DelegateCommand(() =>
-        {
-            var prevMark = ExtendFileInfos.Take(SelectedFileIndex - 1).Reverse().FirstOrDefault(f => f.Marked);
-
-            if (prevMark != null)
-            {
-                SelectedFileIndex = ExtendFileInfos.IndexOf(prevMark);
-            }
-        });
-
-        public DelegateCommand DisplayIgnoreFileCommand => new DelegateCommand(() =>
-        {
-            IgnoreFileIsVisible = true;
-        });
-
-        public DelegateCommand HideIgnoreFileCommand => new DelegateCommand(() =>
-        {
-            IgnoreFileIsVisible = false;
-        });
-
         public DelegateCommand AppendPrefixToIgnoreFilesCommand => new DelegateCommand(() =>
         {
             var ignoreFiles = ExtendFileInfos.Where(f => f.Ignore);
@@ -96,12 +66,6 @@ namespace FileOrganizer.ViewModels
         {
             var files = ExtendFileInfos.Where(f => !f.Ignore);
             renamer.AppendNumber(files);
-        });
-
-        public DelegateCommand ReverseCommand => new DelegateCommand(() =>
-        {
-            ExtendFileInfos = new ObservableCollection<ExtendFileInfo>(ExtendFileInfos.Reverse());
-            ReIndex();
         });
 
         public DelegateCommand PlaySoundCommand => new DelegateCommand(() =>
