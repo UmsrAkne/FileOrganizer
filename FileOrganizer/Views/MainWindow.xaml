@@ -71,6 +71,7 @@
 
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
             <RowDefinition />
             <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
@@ -113,9 +114,42 @@
             </MenuItem>
         </Menu>
 
+        <StackPanel
+            Grid.Row="1"
+            Margin="0,2"
+            Orientation="Horizontal">
+            <StackPanel.Resources>
+                <Style TargetType="TextBlock">
+                    <Setter Property="FontSize" Value="13" />
+                    <Setter Property="VerticalAlignment" Value="Center" />
+                </Style>
+
+                <Style TargetType="CheckBox">
+                    <Setter Property="VerticalAlignment" Value="Center" />
+                </Style>
+            </StackPanel.Resources>
+
+            <CheckBox IsChecked="{Binding FileContainer.ContainsIgnoreFiles}" Margin="5,0" />
+            <TextBlock Text="無視ファイルを表示する" />
+
+            <Border Margin="10,0" Width="0" />
+
+            <CheckBox IsChecked="{Binding FileContainer.IsReverseOrder}" Margin="5,0" />
+            <TextBlock Text="逆順で表示" />
+
+            <Border Margin="10,0" Width="0" />
+
+            <TextBlock Text="インデックスの開始番号 : " />
+            <TextBox
+                Margin="5,0"
+                Text="{Binding FileContainer.StartIndex}"
+                Width="40" />
+
+        </StackPanel>
+
         <ListView
             AlternationCount="2"
-            Grid.Row="1"
+            Grid.Row="2"
             ItemContainerStyle="{StaticResource ResourceKey=ListViewItemContainerStyle}"
             ItemTemplate="{StaticResource ResourceKey=ListViewItemTemplate}"
             ItemsSource="{Binding FileContainer.Files}"
@@ -129,7 +163,7 @@
 
         </ListView>
 
-        <StatusBar Grid.Row="2" VerticalAlignment="Bottom">
+        <StatusBar Grid.Row="3" VerticalAlignment="Bottom">
             <StatusBarItem Content="{StaticResource ResourceKey=StatusBarContents}" />
         </StatusBar>
 
