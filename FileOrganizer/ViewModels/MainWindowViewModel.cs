@@ -21,7 +21,6 @@ namespace FileOrganizer.ViewModels
         private string title = "File Organizer";
         private ObservableCollection<ExtendFileInfo> extendFileInfos = new ObservableCollection<ExtendFileInfo>();
         private ExtendFileInfo selectedItem;
-        private int selectedFileIndex;
         private bool ignoreFileIsVisible = true;
         private int ignoreFileCount;
         private int maximumIndex;
@@ -41,11 +40,9 @@ namespace FileOrganizer.ViewModels
 
         public ExtendFileInfo SelectedItem { get => selectedItem; set => SetProperty(ref selectedItem, value); }
 
-        public int SelectedFileIndex { get => selectedFileIndex; set => SetProperty(ref selectedFileIndex, value); }
+        public int MaximumIndex { get => maximumIndex; private set => SetProperty(ref maximumIndex, value); }
 
-        public int MaximumIndex { get => maximumIndex; set => SetProperty(ref maximumIndex, value); }
-
-        public double FontSize { get => fontSize; set => SetProperty(ref fontSize, value); }
+        public double FontSize { get => fontSize; private set => SetProperty(ref fontSize, value); }
 
         public DelegateCommand<object> SetFontSizeCommand => new DelegateCommand<object>((size) =>
         {
@@ -119,18 +116,6 @@ namespace FileOrganizer.ViewModels
 
             MarkedFileCount = 0;
             IgnoreFileCount = 0;
-        }
-
-        private void ReIndex()
-        {
-            var index = 1;
-
-            foreach (var f in ExtendFileInfos)
-            {
-                f.Index = f.Ignore ? 0 : index++;
-            }
-
-            MaximumIndex = index - 1;
         }
 
         private int GetDisplayingItemCount(double lvActualHeight)
