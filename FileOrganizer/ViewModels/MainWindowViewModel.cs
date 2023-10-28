@@ -21,12 +21,12 @@ namespace FileOrganizer.ViewModels
         private string title = "File Organizer";
         private ObservableCollection<ExtendFileInfo> extendFileInfos = new ObservableCollection<ExtendFileInfo>();
         private ExtendFileInfo selectedItem;
-        private int selectedFileIndex;
         private bool ignoreFileIsVisible = true;
         private int ignoreFileCount;
         private int maximumIndex;
         private int markedFileCount;
         private double fontSize = 12.0;
+        private int listViewItemLineHeight = 15;
 
         public string Title { get => title; set => SetProperty(ref title, value); }
 
@@ -40,45 +40,14 @@ namespace FileOrganizer.ViewModels
 
         public ExtendFileInfo SelectedItem { get => selectedItem; set => SetProperty(ref selectedItem, value); }
 
-        public int SelectedFileIndex { get => selectedFileIndex; set => SetProperty(ref selectedFileIndex, value); }
+        public int MaximumIndex { get => maximumIndex; private set => SetProperty(ref maximumIndex, value); }
 
-        public int MaximumIndex { get => maximumIndex; set => SetProperty(ref maximumIndex, value); }
-
-        public double FontSize { get => fontSize; set => SetProperty(ref fontSize, value); }
+        public double FontSize { get => fontSize; private set => SetProperty(ref fontSize, value); }
 
         public DelegateCommand<object> SetFontSizeCommand => new DelegateCommand<object>((size) =>
         {
             FontSize = (double)size;
-        });
-
-        public DelegateCommand JumpToNextMarkCommand => new DelegateCommand(() =>
-        {
-            var nextMark = ExtendFileInfos.Skip(SelectedFileIndex + 1).FirstOrDefault(f => f.Marked);
-
-            if (nextMark != null)
-            {
-                SelectedFileIndex = ExtendFileInfos.IndexOf(nextMark);
-            }
-        });
-
-        public DelegateCommand JumpToPrevMarkCommand => new DelegateCommand(() =>
-        {
-            var prevMark = ExtendFileInfos.Take(SelectedFileIndex - 1).Reverse().FirstOrDefault(f => f.Marked);
-
-            if (prevMark != null)
-            {
-                SelectedFileIndex = ExtendFileInfos.IndexOf(prevMark);
-            }
-        });
-
-        public DelegateCommand DisplayIgnoreFileCommand => new DelegateCommand(() =>
-        {
-            IgnoreFileIsVisible = true;
-        });
-
-        public DelegateCommand HideIgnoreFileCommand => new DelegateCommand(() =>
-        {
-            IgnoreFileIsVisible = false;
+            ListViewItemLineHeight = (int)((double)size * 1.25);
         });
 
         public DelegateCommand AppendPrefixToIgnoreFilesCommand => new DelegateCommand(() =>
@@ -98,10 +67,14 @@ namespace FileOrganizer.ViewModels
             renamer.AppendNumber(files);
         });
 
-        public DelegateCommand ReverseCommand => new DelegateCommand(() =>
+        public DelegateCommand<object> PageDownCommand => new DelegateCommand<object>((lvActualHeight) =>
         {
-            ExtendFileInfos = new ObservableCollection<ExtendFileInfo>(ExtendFileInfos.Reverse());
-            ReIndex();
+            FileContainer.MoveCursorCommand.Execute(GetDisplayingItemCount((double)lvActualHeight));
+        });
+
+        public DelegateCommand<object> PageUpCommand => new DelegateCommand<object>((lvActualHeight) =>
+        {
+            FileContainer.MoveCursorCommand.Execute(GetDisplayingItemCount((double)lvActualHeight) * -1);
         });
 
         public DelegateCommand PlaySoundCommand => new DelegateCommand(() =>
@@ -129,7 +102,11 @@ namespace FileOrganizer.ViewModels
 
         public int MarkedFileCount { get => markedFileCount; set => SetProperty(ref markedFileCount, value); }
 
-        private int ListViewItemLineHeight => 15;
+        public int ListViewItemLineHeight
+        {
+            get => listViewItemLineHeight;
+            private set => SetProperty(ref listViewItemLineHeight, value);
+        }
 
         // 基本的にビヘイビアから呼び出される
         public void SetFiles(List<ExtendFileInfo> files)
@@ -141,22 +118,10 @@ namespace FileOrganizer.ViewModels
             IgnoreFileCount = 0;
         }
 
-        private void ReIndex()
-        {
-            var index = 1;
-
-            foreach (var f in ExtendFileInfos)
-            {
-                f.Index = f.Ignore ? 0 : index++;
-            }
-
-            MaximumIndex = index - 1;
-        }
-
-        private int GetDisplayingItemCount(ListView lv)
+        private int GetDisplayingItemCount(double lvActualHeight)
         {
             // + 5 はボーダー等によるズレの補正値。厳密に正確な表示数が出るわけではない。大体当たっている程度。
-            return (int)Math.Floor(lv.ActualHeight / (ListViewItemLineHeight + 5));
+            return (int)Math.Floor(lvActualHeight / (ListViewItemLineHeight + 5));
         }
     }
 }
