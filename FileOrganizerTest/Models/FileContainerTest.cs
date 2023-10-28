@@ -267,5 +267,48 @@ namespace FileOrganizerTest.Models
             Assert.That(fileContainer.CursorIndex, Is.EqualTo(0), "マークなしのため変化しない");
         }
 
+        [Test]
+        public void StartIndexを変更時の動作のテスト()
+        {
+            var files = new List<ExtendFileInfo>()
+            {
+                new ExtendFileInfo("c:\\a"),
+                new ExtendFileInfo("c:\\b"),
+                new ExtendFileInfo("c:\\c"),
+            };
+
+            var fileContainer = new FileContainer(files);
+            Assert.That(files[0].Index, Is.EqualTo(1));
+            Assert.That(files[1].Index, Is.EqualTo(2));
+            Assert.That(files[2].Index, Is.EqualTo(3));
+
+            fileContainer.StartIndex = 2;
+
+            Assert.That(files[0].Index, Is.EqualTo(2));
+            Assert.That(files[1].Index, Is.EqualTo(3));
+            Assert.That(files[2].Index, Is.EqualTo(4));
+        }
+
+        [Test]
+        public void IsReverseOrder変更時の動作のテスト()
+        {
+            var files = new List<ExtendFileInfo>()
+            {
+                new ExtendFileInfo("c:\\a"),
+                new ExtendFileInfo("c:\\b"),
+                new ExtendFileInfo("c:\\c"),
+            };
+
+            var fileContainer = new FileContainer(files);
+            Assert.That(files[0].FileInfo.Name, Is.EqualTo("a"));
+            Assert.That(files[1].FileInfo.Name, Is.EqualTo("b"));
+            Assert.That(files[2].FileInfo.Name, Is.EqualTo("c"));
+
+            fileContainer.IsReverseOrder = true;
+
+            Assert.That(fileContainer.Files[0].FileInfo.Name, Is.EqualTo("c"));
+            Assert.That(fileContainer.Files[1].FileInfo.Name, Is.EqualTo("b"));
+            Assert.That(fileContainer.Files[2].FileInfo.Name, Is.EqualTo("a"));
+        }
     }
 }
