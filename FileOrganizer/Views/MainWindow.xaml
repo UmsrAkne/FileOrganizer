@@ -36,6 +36,16 @@
             </KeyBinding.CommandParameter>
         </KeyBinding>
 
+        <KeyBinding
+            Command="{Binding PageDownCommand}"
+            CommandParameter="{Binding ElementName=FileListView, Path=ActualHeight}"
+            Key="L" />
+
+        <KeyBinding
+            Command="{Binding PageUpCommand}"
+            CommandParameter="{Binding ElementName=FileListView, Path=ActualHeight}"
+            Key="H" />
+
         <KeyBinding Command="{Binding FileContainer.JumpToNextMarkedFileCommand}" Key="N" />
 
         <KeyBinding

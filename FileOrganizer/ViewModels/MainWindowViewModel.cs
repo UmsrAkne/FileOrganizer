@@ -50,6 +50,7 @@ namespace FileOrganizer.ViewModels
         public DelegateCommand<object> SetFontSizeCommand => new DelegateCommand<object>((size) =>
         {
             FontSize = (double)size;
+            ListViewItemLineHeight = (int)((double)size * 1.25);
         });
 
         public DelegateCommand AppendPrefixToIgnoreFilesCommand => new DelegateCommand(() =>
@@ -67,6 +68,16 @@ namespace FileOrganizer.ViewModels
         {
             var files = ExtendFileInfos.Where(f => !f.Ignore);
             renamer.AppendNumber(files);
+        });
+
+        public DelegateCommand<object> PageDownCommand => new DelegateCommand<object>((lvActualHeight) =>
+        {
+            FileContainer.MoveCursorCommand.Execute(GetDisplayingItemCount((double)lvActualHeight));
+        });
+
+        public DelegateCommand<object> PageUpCommand => new DelegateCommand<object>((lvActualHeight) =>
+        {
+            FileContainer.MoveCursorCommand.Execute(GetDisplayingItemCount((double)lvActualHeight) * -1);
         });
 
         public DelegateCommand PlaySoundCommand => new DelegateCommand(() =>
@@ -122,10 +133,10 @@ namespace FileOrganizer.ViewModels
             MaximumIndex = index - 1;
         }
 
-        private int GetDisplayingItemCount(ListView lv)
+        private int GetDisplayingItemCount(double lvActualHeight)
         {
             // + 5 はボーダー等によるズレの補正値。厳密に正確な表示数が出るわけではない。大体当たっている程度。
-            return (int)Math.Floor(lv.ActualHeight / (ListViewItemLineHeight + 5));
+            return (int)Math.Floor(lvActualHeight / (ListViewItemLineHeight + 5));
         }
     }
 }
