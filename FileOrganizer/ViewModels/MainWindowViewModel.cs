@@ -21,7 +21,6 @@ namespace FileOrganizer.ViewModels
         private string title = "File Organizer";
         private ObservableCollection<ExtendFileInfo> extendFileInfos = new ObservableCollection<ExtendFileInfo>();
         private ExtendFileInfo selectedItem;
-        private bool ignoreFileIsVisible = true;
         private int maximumIndex;
         private double fontSize = 12.0;
         private int listViewItemLineHeight = 15;
