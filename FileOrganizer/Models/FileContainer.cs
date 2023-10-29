@@ -89,6 +89,10 @@ namespace FileOrganizer.Models
             }
         }
 
+        public int IgnoreFileCount { private get; set; }
+
+        public int MarkedFileCount { private get; set; }
+
         public DelegateCommand<object> MoveCursorCommand => new DelegateCommand<object>((count) =>
         {
             CursorIndex += (int)count;
@@ -131,6 +135,12 @@ namespace FileOrganizer.Models
             {
                 f.Index = index++;
             }
+
+            IgnoreFileCount = files.Count(f => f.Ignore);
+            RaisePropertyChanged(nameof(IgnoreFileCount));
+
+            MarkedFileCount = files.Count(f => f.Marked);
+            RaisePropertyChanged(nameof(MarkedFileCount));
 
             CursorIndex = CursorIndex;
         });

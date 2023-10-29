@@ -16,7 +16,7 @@
 
             <StackPanel Orientation="Horizontal">
                 <TextBlock Text="ファイル数 : " />
-                <TextBlock Text="{Binding ExtendFileInfos.Count}" />
+                <TextBlock Text="{Binding FileContainer.Files.Count}" />
 
                 <TextBlock Margin="10,0" Text="/" />
 
@@ -26,12 +26,12 @@
                 <TextBlock Margin="10,0" Text="/" />
 
                 <TextBlock Text="無視しているファイル数 : " />
-                <TextBlock Text="{Binding IgnoreFileCount}" />
+                <TextBlock Text="{Binding FileContainer.IgnoreFileCount}" />
 
                 <TextBlock Margin="10,0" Text="/" />
 
                 <TextBlock Text="マークしているファイル数 : " />
-                <TextBlock Text="{Binding MarkedFileCount}" />
+                <TextBlock Text="{Binding FileContainer.MarkedFileCount}" />
 
                 <TextBlock Margin="10,0" Text="/" />
 
@@ -41,11 +41,11 @@
                     <TextBlock.Style>
                         <Style TargetType="TextBlock">
                             <Style.Triggers>
-                                <DataTrigger Binding="{Binding IgnoreFileIsVisible}" Value="True">
+                                <DataTrigger Binding="{Binding FileContainer.ContainsIgnoreFiles}" Value="True">
                                     <Setter Property="Text" Value="表示" />
                                 </DataTrigger>
 
-                                <DataTrigger Binding="{Binding IgnoreFileIsVisible}" Value="False">
+                                <DataTrigger Binding="{Binding FileContainer.ContainsIgnoreFiles}" Value="False">
                                     <Setter Property="Text" Value="非表示" />
                                 </DataTrigger>
                             </Style.Triggers>
