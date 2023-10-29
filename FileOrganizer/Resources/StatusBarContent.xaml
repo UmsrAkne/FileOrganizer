@@ -16,7 +16,7 @@
 
             <StackPanel Orientation="Horizontal">
                 <TextBlock Text="ファイル数 : " />
-                <TextBlock Text="{Binding ExtendFileInfos.Count}" />
+                <TextBlock Text="{Binding FileContainer.Files.Count}" />
 
                 <TextBlock Margin="10,0" Text="/" />
 
@@ -26,12 +26,12 @@
                 <TextBlock Margin="10,0" Text="/" />
 
                 <TextBlock Text="無視しているファイル数 : " />
-                <TextBlock Text="{Binding IgnoreFileCount}" />
+                <TextBlock Text="{Binding FileContainer.IgnoreFileCount}" />
 
                 <TextBlock Margin="10,0" Text="/" />
 
                 <TextBlock Text="マークしているファイル数 : " />
-                <TextBlock Text="{Binding MarkedFileCount}" />
+                <TextBlock Text="{Binding FileContainer.MarkedFileCount}" />
 
                 <TextBlock Margin="10,0" Text="/" />
 
