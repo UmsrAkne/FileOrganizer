@@ -9,7 +9,7 @@
 
     <DataTemplate DataType="{x:Type m:ExtendFileInfo}" x:Key="ListViewItemTemplate">
 
-        <ContentControl Height="{Binding ElementName=Window, Path=DataContext.ListViewItemLineHeight}">
+        <ContentControl Height="{Binding ElementName=Window, Path=DataContext.(viewModels:MainWindowViewModel.ListViewItemLineHeight)}">
 
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="MouseDoubleClick">
