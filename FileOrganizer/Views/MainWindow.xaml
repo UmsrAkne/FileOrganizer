@@ -157,7 +157,7 @@
             ItemTemplate="{StaticResource ResourceKey=ListViewItemTemplate}"
             ItemsSource="{Binding FileContainer.Files}"
             SelectedIndex="{Binding FileContainer.CursorIndex}"
-            SelectedItem="{Binding SelectedItem}"
+            SelectedItem="{Binding FileContainer.SelectedItem}"
             x:Name="FileListView">
 
             <i:Interaction.Behaviors>

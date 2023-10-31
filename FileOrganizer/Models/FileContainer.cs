@@ -12,6 +12,7 @@ namespace FileOrganizer.Models
         private bool containsIgnoreFiles = true;
         private bool isReverseOrder;
         private int startIndex = 1;
+        private ExtendFileInfo selectedItem;
 
         public FileContainer(IEnumerable<ExtendFileInfo> extendFileInfos)
         {
@@ -147,6 +148,8 @@ namespace FileOrganizer.Models
 
             CursorIndex = CursorIndex;
         });
+
+        public ExtendFileInfo SelectedItem { get => selectedItem; set => SetProperty(ref selectedItem, value); }
 
         public DelegateCommand<ExtendFileInfo> ToggleIgnoreCommand => new DelegateCommand<ExtendFileInfo>((f) =>
         {
