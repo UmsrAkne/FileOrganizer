@@ -19,8 +19,6 @@ namespace FileOrganizer.ViewModels
 
         private string title = "File Organizer";
         private ObservableCollection<ExtendFileInfo> extendFileInfos = new ObservableCollection<ExtendFileInfo>();
-        private ExtendFileInfo selectedItem;
-        private int maximumIndex;
         private double fontSize = 12.0;
         private int listViewItemLineHeight = 15;
 
@@ -33,10 +31,6 @@ namespace FileOrganizer.ViewModels
             get => extendFileInfos;
             private set => SetProperty(ref extendFileInfos, value);
         }
-
-        public ExtendFileInfo SelectedItem { get => selectedItem; set => SetProperty(ref selectedItem, value); }
-
-        public int MaximumIndex { get => maximumIndex; private set => SetProperty(ref maximumIndex, value); }
 
         public double FontSize { get => fontSize; private set => SetProperty(ref fontSize, value); }
 
@@ -75,21 +69,21 @@ namespace FileOrganizer.ViewModels
 
         public DelegateCommand PlaySoundCommand => new DelegateCommand(() =>
         {
-            if (SelectedItem == null)
+            if (FileContainer.SelectedItem == null)
             {
                 return;
             }
 
-            if (SelectedItem.IsSoundFile)
+            if (FileContainer.SelectedItem.IsSoundFile)
             {
                 ExtendFileInfos.ToList().ForEach(f => f.Playing = false);
-                SelectedItem.Playing = true;
-                windowsMediaPlayer.URL = SelectedItem.FileInfo.FullName;
+                FileContainer.SelectedItem.Playing = true;
+                windowsMediaPlayer.URL = FileContainer.SelectedItem.FileInfo.FullName;
                 windowsMediaPlayer.controls.play();
                 return;
             }
 
-            Process.Start(SelectedItem.FileInfo.FullName);
+            Process.Start(FileContainer.SelectedItem.FileInfo.FullName);
         });
 
         public int ListViewItemLineHeight
