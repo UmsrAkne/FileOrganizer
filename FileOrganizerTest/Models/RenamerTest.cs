@@ -69,5 +69,25 @@ namespace FileOrganizerTest.Models
             Assert.That(files[2].FileInfo.Name, Is.EqualTo("0004_c.temp"));
             Assert.That(files[3].FileInfo.Name, Is.EqualTo("0005_d.temp"));
         }
+
+        [Test]
+        public void AppendPrefixTest()
+        {
+            var renamer = new Renamer();
+            var files = new List<ExtendFileInfo>()
+            {
+                new ExtendFileInfo($"{testDirectoryName}\\a.temp"),
+                new ExtendFileInfo($"{testDirectoryName}\\b.temp"),
+                new ExtendFileInfo($"{testDirectoryName}\\c.temp"),
+                new ExtendFileInfo($"{testDirectoryName}\\d.temp"),
+            };
+
+            renamer.AppendPrefix("pre", files);
+
+            Assert.That(files[0].FileInfo.Name, Is.EqualTo("pre_a.temp"));
+            Assert.That(files[1].FileInfo.Name, Is.EqualTo("pre_b.temp"));
+            Assert.That(files[2].FileInfo.Name, Is.EqualTo("pre_c.temp"));
+            Assert.That(files[3].FileInfo.Name, Is.EqualTo("pre_d.temp"));
+        }
     }
 }
