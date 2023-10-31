@@ -26,16 +26,14 @@ namespace FileOrganizer.Models
             }
         }
 
-        public void AppendNumber(IEnumerable<ExtendFileInfo> files)
+        public void AppendNumber(IEnumerable<ExtendFileInfo> files, int startNumber = 1)
         {
-            var number = 0;
             var extendFileInfos = files.ToList();
             var occuredError = false;
 
             extendFileInfos.ForEach(f =>
             {
-                number++;
-                var numberString = number.ToString("0000");
+                var numberString = startNumber++.ToString("0000");
                 f.TentativeName = $"{numberString}_{f.Name}";
 
                 if (!File.Exists(f.FileInfo.FullName) && File.Exists($"{f.FileInfo.DirectoryName}\\{f.TentativeName}"))
