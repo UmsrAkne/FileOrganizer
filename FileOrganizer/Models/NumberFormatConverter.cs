@@ -16,7 +16,7 @@
                 return string.Format("{0:" + string.Join(string.Empty, zeros) + "}", (int)value);
             }
 
-            return string.Format("{0:0000}", (int)value);
+            return value != null ? $"{(int)value:0000}" : "0000";
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

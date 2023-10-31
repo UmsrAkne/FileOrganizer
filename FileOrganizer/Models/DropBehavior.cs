@@ -31,9 +31,14 @@ namespace FileOrganizer.Models
             string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
 
             int index = 0;
-            var fileList = files.OrderBy(p => p).Select(p => new ExtendFileInfo(p) { Index = ++index }).ToList();
+            if (files == null)
+            {
+                return;
+            }
 
-            ((sender as Window).DataContext as MainWindowViewModel).SetFiles(fileList);
+            var fileList = files.OrderBy(p => p).Select(p => new ExtendFileInfo(p) { Index = ++index, }).ToList();
+
+            ((sender as Window)?.DataContext as MainWindowViewModel)?.SetFiles(fileList);
         }
 
         private void AssociatedObject_PreviewDragOver(object sender, DragEventArgs e)
