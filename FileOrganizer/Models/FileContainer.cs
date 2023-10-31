@@ -131,9 +131,9 @@ namespace FileOrganizer.Models
 
             var index = StartIndex;
 
-            foreach (var f in Files.Where(f => !f.Ignore))
+            foreach (var f in Files)
             {
-                f.Index = index++;
+                f.Index = !f.Ignore ? index++ : 0;
             }
 
             IgnoreFileCount = files.Count(f => f.Ignore);
@@ -141,6 +141,9 @@ namespace FileOrganizer.Models
 
             MarkedFileCount = files.Count(f => f.Marked);
             RaisePropertyChanged(nameof(MarkedFileCount));
+
+            MaximumIndex = Files.Max(f => f.Index);
+            RaisePropertyChanged(nameof(MaximumIndex));
 
             CursorIndex = CursorIndex;
         });
@@ -158,5 +161,7 @@ namespace FileOrganizer.Models
         });
 
         private List<ExtendFileInfo> OriginalFiles { get; set; }
+
+        public object MaximumIndex { get; set; }
     }
 }

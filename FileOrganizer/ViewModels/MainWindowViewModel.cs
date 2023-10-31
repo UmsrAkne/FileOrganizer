@@ -20,7 +20,6 @@ namespace FileOrganizer.ViewModels
         private string title = "File Organizer";
         private ObservableCollection<ExtendFileInfo> extendFileInfos = new ObservableCollection<ExtendFileInfo>();
         private ExtendFileInfo selectedItem;
-        private int maximumIndex;
         private double fontSize = 12.0;
         private int listViewItemLineHeight = 15;
 
@@ -35,8 +34,6 @@ namespace FileOrganizer.ViewModels
         }
 
         public ExtendFileInfo SelectedItem { get => selectedItem; set => SetProperty(ref selectedItem, value); }
-
-        public int MaximumIndex { get => maximumIndex; private set => SetProperty(ref maximumIndex, value); }
 
         public double FontSize { get => fontSize; private set => SetProperty(ref fontSize, value); }
 

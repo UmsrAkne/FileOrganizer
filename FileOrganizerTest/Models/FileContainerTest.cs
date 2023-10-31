@@ -310,5 +310,33 @@ namespace FileOrganizerTest.Models
             Assert.That(fileContainer.Files[1].FileInfo.Name, Is.EqualTo("b"));
             Assert.That(fileContainer.Files[2].FileInfo.Name, Is.EqualTo("a"));
         }
+
+        [Test]
+        public void MaximumIndexTest()
+        {
+            var files = new List<ExtendFileInfo>()
+            {
+                new ExtendFileInfo("c:\\a"), new ExtendFileInfo("c:\\b"), };
+
+            var fileContainer = new FileContainer(files);
+            fileContainer.ReloadCommand.Execute();
+            Assert.That(fileContainer.MaximumIndex, Is.EqualTo(2));
+
+            files[0].Ignore = true;
+            fileContainer.ReloadCommand.Execute();
+            Assert.That(fileContainer.MaximumIndex, Is.EqualTo(1));
+
+            files[1].Ignore = true;
+            fileContainer.ReloadCommand.Execute();
+            Assert.That(fileContainer.MaximumIndex, Is.EqualTo(0));
+
+            files[1].Ignore = false;
+            fileContainer.ReloadCommand.Execute();
+            Assert.That(fileContainer.MaximumIndex, Is.EqualTo(1));
+
+            files[0].Ignore = false;
+            fileContainer.ReloadCommand.Execute();
+            Assert.That(fileContainer.MaximumIndex, Is.EqualTo(2));
+        }
     }
 }
