@@ -163,8 +163,8 @@ namespace FileOrganizer.Models
             ReloadCommand.Execute();
         });
 
-        private List<ExtendFileInfo> OriginalFiles { get; set; }
-
         public object MaximumIndex { get; set; }
+
+        private List<ExtendFileInfo> OriginalFiles { get; set; }
     }
 }
